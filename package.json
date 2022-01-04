@@ -6,7 +6,7 @@
   "homepage": "https://goitacademy.github.io/Project_JS",
   "scripts": {
     "dev": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url /Project_JS/index.html"
+    "build": "parcel build src/*.html --public-url /Project_JS/"
   },
   "repository": {
     "type": "git",
