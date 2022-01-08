@@ -117,8 +117,6 @@
           flex-direction: row;
   margin: 0 auto;
   list-style-type: none;
-  padding-top: 20px;
-  padding-bottom: 20px;
 }
 
 .pagination__link {
@@ -131,5 +129,23 @@
   text-align: center;
   color: #ffffff;
   margin-right: 5px;
+  border-radius: 10px 0px;
+  width: 30px;
+  height: 30px;
+  list-style-type: none;
+  text-decoration: none;
+  padding-top: 5px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.pagination__link a {
+  text-decoration: none;
+  color: white;
+}
+
+.pagination__link--active {
+  border: 1px solid #DC56C5;
+  border-radius: 10px 0px;
 }
 /*# sourceMappingURL=main.css.map */

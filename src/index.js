@@ -1,15 +1,14 @@
-
 'use strict';
 import './sass/main.scss';
 const gallery = document.querySelector('.gallery');
-const key = '9hIF6NBjrDSVNrQQJmrbBXzEzwkr0S4m';
+const KEY = '9hIF6NBjrDSVNrQQJmrbBXzEzwkr0S4m';
 const paginationList = document.querySelector('.pagination');
-let page=0;
-let country="pl";
+let page = 0;
+let country = "pl";
 let keyword;
 
-async function galleryRender(country,page) {
-  let data = await fetchEvents(country,page);
+async function galleryRender(country, page) {
+  let data = await fetchEvents(country, page);
   console.log(data);
   let pages = data.page;
   let events = data._embedded.events;
@@ -29,28 +28,15 @@ async function galleryRender(country,page) {
   </div>`,
     );
   });
-  let numPages = [];
-  for (let i = 1; i <= totalPages; i += 1) {
-    numPages.push(i);
-  }
-  numPages.forEach(elm => {
-    paginationList.insertAdjacentHTML(
-      'beforeend',
-      `<li class="pagination__link"><a href="">${elm}</a></li>`,
-    );
-  });
-  const firstLink = paginationList.children[0];
-  const lastElementIndex = paginationList.children.length - 1;
-    const lastLink = paginationList.children[lastElementIndex];
-    const link = paginationList.children;
-    
+
+pagination()
 
 }
 
-async function fetchEvents(country,page) {
+async function fetchEvents(country, page) {
   const response = await fetch(
-    `https://app.ticketmaster.com/discovery/v2/events?countryCode=${country}&sort=date,asc&page=${page}&apikey=${key}`,
-  )
+      `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=${country}&sort=date,asc&page=${page}&apikey=${KEY}`,
+    )
     .then(data => {
       // console.log(data.json())
       const response = data.json();
@@ -63,9 +49,61 @@ async function fetchEvents(country,page) {
   return response;
 }
 
+async function pagination() {
+  let data = await fetchEvents(country, page);
+  let pages = data.page;
+  let totalPages = pages.totalPages;
+  let links = data._links;
+  let fLink = links.first.href;
+  let lLink = links.last.href;
+  let numPages = [];
+  for (let i = 1; i < totalPages; i += 1) {
+    numPages.push(i);
+  }
+  numPages.forEach(elm => {
+    paginationList.insertAdjacentHTML(
+      'beforeend',
+      `<li class="pagination__link"><a href=${elm}>${elm}</a></li>`,
+    );
+  });
+  const firstLink = paginationList.children[0];
+  const lastElementIndex = paginationList.children.length - 1;
+  const lastLink = paginationList.children[lastElementIndex];
+  const link = paginationList.children;
+
+  const paginationLinks = document.querySelectorAll(".pagination__link");
+
+    paginationLinks[0].classList.add("pagination__link--active")
+   
+    paginationLinks[lastElementIndex].classList.add("link-visibility")
+    paginationLinks.forEach(elm => {
+        // elm.classList.add("link-hidden")
+        if (elm.textContent == pages.number) {
+            elm.classList.add("pagination__link--active");
+            paginationLinks[0].classList.remove("pagination__link--active")
+        }
+        if (elm.textContent > 0) {
+            
+        }
+    elm.addEventListener("click", (event) => {
+        event.preventDefault();
+      gallery.innerHTML = "";
+      paginationList.innerHTML = "";
+      page = elm.textContent;
+        galleryRender(country, page);
+        
+         window.scrollTo({ top: 0, behavior: 'smooth' })
+        console.log(elm)
+        
+    })
+    })
+}
+
+galleryRender(country, page);
 
 
-galleryRender(country,page);
+
+
 
 
 
@@ -94,7 +132,7 @@ galleryRender(country,page);
 //             // console.log(data.json())
 //             const response = data.json();
 //             return response
-            
+
 //         })
 //         .then(response => {
 //             console.log(response);
@@ -128,7 +166,7 @@ galleryRender(country,page);
 //                 paginationList.insertAdjacentHTML("beforeend",`<li class="pagination__link"><a href="">${elm}</a></li>`)
 //             })
 //             const firstLink = paginationList.children[0];
-            
+
 //             console.log(numPages.length)
 //             const lastElementIndex = paginationList.children.length - 1;
 //             const lastLink = paginationList.children[lastElementIndex];
@@ -142,17 +180,17 @@ galleryRender(country,page);
 //         //     // console.log(data.json())
 //         //     const response = data.json();
 //         //     return response
-            
+
 //         // })
-                
-                
+
+
 
 //         //     })
 //             // firstLink.childNodes[0].setAttribute("href", `${fLink}`);
 //             // console.log(firstLink.childNodes[0])
 //             // console.log(firstLink)
 //             // lastLink.childNodes[0].setAttribute("href",`${lLink}`)
-            
+
 //         })
 //         .catch(error => {
 //         console.log(error)
