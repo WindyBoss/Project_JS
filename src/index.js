@@ -5,7 +5,7 @@ const KEY = '9hIF6NBjrDSVNrQQJmrbBXzEzwkr0S4m';
 const paginationList = document.querySelector('.pagination');
 let page = 0;
 let country = "pl";
-let keyword;
+let keyword = "";
 
 async function galleryRender(country, page) {
   let data = await fetchEvents(country, page);
@@ -33,7 +33,7 @@ pagination()
 
 }
 
-async function fetchEvents(country, page) {
+async function fetchEvents(country, page, keyword) {
   const response = await fetch(
       `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=${country}&sort=date,asc&page=${page}&apikey=${KEY}`,
     )
@@ -45,8 +45,9 @@ async function fetchEvents(country, page) {
     .catch(error => {
       console.log(error);
     });
-
+  
   return response;
+  
 }
 
 async function pagination() {
@@ -100,6 +101,8 @@ async function pagination() {
 }
 
 galleryRender(country, page);
+
+export { fetchEvents, KEY } ;
 
 
 
