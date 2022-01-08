@@ -1,0 +1,122 @@
+
+.container {
+  
+  min-width: 320px;
+  max-width: 767px;
+  margin: 0 auto;
+  background-color: black;
+  padding-top: 30px;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+min-width: 280px;
+  margin-left: -14px;
+  margin-top: -80px;
+min-height: 800px;
+
+}
+
+.gallery__event {
+  width: 138px;
+  min-height: 242px;
+  margin-left: 14px;
+  margin-top: 80px;
+  flex-basis: calc(100% / 2 - 14px);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+
+}
+.gallery__event::before{
+    content: "";
+    box-sizing: border-box;
+    border: 1px solid #DC56C54D;
+    height: 101px;
+    width: 109px;
+   border-radius: 50px 0px;
+   position: absolute;
+   
+  
+
+}
+.event__image {
+  height: 161px;
+  width: 128px;
+  box-sizing: border-box;
+  border-radius: 50px 0px;
+  
+
+}
+
+.event__tittle {
+  max-width: 138px;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+//   line-height: 17px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #DC56C5;
+
+}
+
+.event__place {
+  max-width: 138px;
+  color: white;
+  text-align: center;
+  font-family: Montserrat;
+font-size: 12px;
+font-style: normal;
+font-weight: 600;
+line-height: 15px;
+letter-spacing: 0em;
+text-align: center;
+
+}
+.event__place::before{
+    display:inline-block;
+    content: url('/images/location.svg');
+}
+
+.event__date {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 17px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #ffffff;
+
+
+}
+.pagination__wrapper{
+    display: flex;
+}
+.pagination{
+    display: flex;
+    flex-direction: row;
+    margin:0 auto;
+    list-style-type: none;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.pagination__link{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #ffffff;
+    margin-right: 5px;
+
+}
