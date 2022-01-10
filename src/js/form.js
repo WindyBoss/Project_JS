@@ -2,6 +2,7 @@ import { KEY } from '..';
 
 const input = document.querySelector('.input-keyword');
 const gallery = document.querySelector('.gallery');
+const select = document.querySelector(".country");
 let code = KEY;
 let keyword = '';
 
@@ -42,3 +43,4 @@ const putEvents = () => {
 };
 
 input.addEventListener('change', putEvents);
+
