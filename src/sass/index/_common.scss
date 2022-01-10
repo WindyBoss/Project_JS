@@ -1,0 +1,46 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding: 0;
+  margin: 0;
+}
+ul,
+ol {
+  padding: 0;
+  margin: 0;
+}
+p {
+  padding: 0;
+  margin: 0;
+}
+body {
+   background: (linear, left top, right top, from(#0b0b0b73), color-stop(50%, #0b0b0b80)),url(../images/main-bg.png);
+    background: linear-gradient(
+90deg
+, #0b0b0b73 0%, #0b0b0b80 50%),url(../images/main-bg.png);
+margin: 0 auto;
+}
+
+* {
+font-family: 'Montserrat', sans-serif;
+}
+.container {
+display: flex;
+max-width: 320px;
+ background: (linear, left top, right top, from(#0b0b0b73), color-stop(50%, #0b0b0b80)),url(../images/main-bg.png);
+    background: linear-gradient(
+90deg
+, #0b0b0b73 0%, #0b0b0b80 50%),url(../images/main-bg.png);
+margin: 0 auto;
+
+ 
+
+}
+
+.list {
+    list-style: none;
+    
+}
