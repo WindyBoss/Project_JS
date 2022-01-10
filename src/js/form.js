@@ -1,6 +1,7 @@
-import { KEY } from "..";
+import { KEY } from '..';
 
 const input = document.querySelector('.input-keyword');
+const gallery = document.querySelector('.gallery');
 let code = KEY;
 let keyword = '';
 
@@ -19,7 +20,25 @@ async function searchEvents(page, keyword) {
   return response;
 }
 
-input.addEventListener('change', () => {
-    keyword = input.value;
-    (searchEvents(0, keyword)).then(data => console.log(data))
-});
+const putEvents = () => {
+  keyword = input.value;
+  gallery.innerHTML = "";
+  searchEvents(0, keyword).then(data => {
+    const { page, _embedded: { events } } = data;
+    events.forEach(element => {
+      gallery.insertAdjacentHTML(
+        'beforeend',
+        `<div class="gallery__event">
+      <img class="event__image" src=${element.images[0].url} alt =""/>
+       <div class="event__info">
+       <p class="event__tittle">${element.name}</p>
+       <p class="event__date">${element.dates.start.localDate}</p>
+       <p class="event__place"> ${element._embedded.venues[0].name}</p></div>
+        </div>`,
+      );
+    });
+    
+  });
+};
+
+input.addEventListener('change', putEvents);
