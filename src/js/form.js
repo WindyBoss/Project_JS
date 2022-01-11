@@ -1,7 +1,7 @@
 import { KEY } from '..';
 import Notiflix from 'notiflix';
 
-const input = document.querySelector('.input-keyword');
+const input = document.querySelector('.search-bar__input');
 const gallery = document.querySelector('.gallery');
 const select = document.querySelector('.country');
 let code = KEY;
@@ -85,6 +85,7 @@ const putCountryEvents = () => {
     })
     .catch(Notiflix.Notify.failure('There are no events in this country'));;
 };
+
 
 input.addEventListener('change', putEvents);
 select.addEventListener('change', putCountryEvents);
