@@ -1,13 +1,15 @@
 import { GenerateLink } from './fetch';
 import Notiflix from 'notiflix';
 
-const input = document.querySelector('.search-bar__input');
+const form = document.querySelector('.search-bar__form');
+const input = form.querySelector('.search-bar__input');
 const gallery = document.querySelector('.gallery');
 const select = document.querySelector('.country');
 let keyword = '';
 let countryCode = '';
 
-async function searchEvents() {;
+async function searchEvents(event) {
+  event.preventDefault();
   keyword = input.value;
   countryCode = select.value;
 
@@ -45,5 +47,5 @@ async function searchEvents() {;
     });
 }
 
-input.addEventListener('submit', searchEvents);
+form.addEventListener('submit', searchEvents);
 select.addEventListener('change', searchEvents);
