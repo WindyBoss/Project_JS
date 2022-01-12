@@ -1,0 +1,31 @@
+@mixin centeredFlex($type) {
+    display: $type;
+    align-items: center;
+    justify-content: center;
+  }
+
+@mixin transform($property) {
+    transition-property: $property;
+    transition-duration: $transition-duration;
+    transition-timing-function: $transition-timing-function;
+}
+
+@mixin btnColorStyle(
+  $bg-color,
+  $color,
+  $border-color,
+  $hover-bg-color,
+  $hover-color,
+  $hover-border-color
+  ) {
+  background-color: $bg-color;
+  color: $color;
+  border: 1px solid $border-color;
+
+  &:hover,
+  &:focus {
+      background-color: $hover-bg-color;
+      color: $hover-color;
+      border: 1px solid $hover-border-color;
+  }
+}

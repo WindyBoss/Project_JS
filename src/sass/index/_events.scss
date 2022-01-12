@@ -1,0 +1,141 @@
+.modal-window {
+  @include centeredFlex (flex);
+  position: fixed;
+  top: 0vw;
+  left: 0vw;
+  height: 100%;
+  width: 100vw;
+  background-color: getColor("modal-bg-color");
+  transform: translate(0, 0);
+  z-index: 10000;
+
+  @include transform (transform);
+
+
+  &.modal-closed {
+    transform: translate(100vw, 0);
+    position: absolute;
+  }
+
+  &__container {
+    position: fixed;
+    top: 20vw;
+    width: 280px;
+    height: 900px;
+    overflow: hidden;
+    background-color: getColor("modal-container-bg-color");
+    border-radius: 150px 0;
+    text-align: center;
+    justify-content: center;
+  }
+
+  &__logo-img {
+    height: 100%;
+
+    &--container {
+      @extend %centered-container;
+      width: 102px;
+      height: 102px;
+      margin-top: 75px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+  }
+
+  &__title {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: getColor("primary-title-text");
+    font-size: 20px;
+    line-height: $line-height;
+  }
+
+  &__text {
+    margin-left: 20px;
+    position: relative;
+    color: getColor("modal-text");
+    font-size: $main-modal-font-size;
+    line-height: $line-height;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+
+  &__price-container .modal-window__text {
+    padding-bottom: 10px;
+    &::before {
+      display: inline-block;
+      position: absolute;
+      left: 8%;
+      content: '';
+      width: 20px;
+      height: 20px;
+    background-image: url(../images/svg/barcode.png);
+
+  }
+  }
+  &__btn {
+    @extend %modal-button;
+
+    width: 145px;
+    height: 40px;
+    margin-bottom: 25px;
+
+    @include btnColorStyle(
+      getColor("modal-btn-bg-color"),
+      getColor("primary-text"),
+      getColor("modal-btn-bg-color"),
+      getColor("primary-title-text"),
+      getColor("primary-text"),
+      getColor("primary-title-text"),
+      );
+
+    &-text {
+      font-size: $main-modal-font-size;
+      line-height: $line-height;
+      color: getColor("primary-text");
+    }
+  }
+
+  &__more--btn {
+    @extend %modal-button;
+
+    width: 230px;
+    height: 40px;
+
+    @include btnColorStyle(
+      transparent,
+      getColor("modal-btn-bg-color"),
+      getColor("modal-btn-bg-color"),
+      transparent,
+      getColor("primary-title-text"),
+      getColor("primary-title-text"),
+    );
+
+    font-size: $main-modal-font-size;
+    line-height: $line-height;
+    padding: 0;
+  }
+
+  &__close--btn {
+    position: absolute;
+    right: 25px;
+    top: 25px;
+    width: 17px;
+    height: 17px;
+    fill: getColor("modal-btn-bg-color");
+
+
+    @include transform (fill);
+    @include transform (cursor);
+
+     &:hover,
+     &:focus {
+        cursor: pointer;
+        fill: getColor("primary-title-text");
+     }
+  }
+}
+
+
+

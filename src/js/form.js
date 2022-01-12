@@ -9,7 +9,7 @@ let keyword = '';
 
 async function searchEvents(page, keyword) {
   const response = await fetch(
-    `https://app.ticketmaster.com/discovery/v2/events.json?keyword=${keyword}&sort=date,asc&page=${page}&apikey=${code}`,
+    `https://app.ticketmaster.com/discovery/v2/events.json?keyword="${keyword}"&sort=date,asc&page=${page}&apikey=${KEY}`,
   )
     .then(data => {
       const response = data.json();
@@ -58,8 +58,13 @@ const putEvents = () => {
         </div>`,
         );
       });
+
+      modalWindow(gallery);
     })
-    .catch(Notiflix.Notify.failure('There are no that kind of events'));
+    .catch(error => {
+      console.log(error);
+      Notiflix.Notify.failure('There are no that kind of events')
+    });
 };
 
 const putCountryEvents = () => {
@@ -73,6 +78,7 @@ const putCountryEvents = () => {
       events.forEach(element => {
         gallery.insertAdjacentHTML(
           'beforeend',
+
           `<div class="gallery__event">
       <img class="event__image" src=${element.images[0].url} alt =""/>
        <div class="event__info">
@@ -82,8 +88,12 @@ const putCountryEvents = () => {
         </div>`,
         );
       });
+      modalWindow(gallery);
     })
-    .catch(Notiflix.Notify.failure('There are no events in this country'));;
+    .catch(error => {
+      console.log(error);
+      Notiflix.Notify.failure('There are no that kind of events')
+    });
 };
 
 
