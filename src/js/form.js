@@ -7,7 +7,7 @@ const select = document.querySelector('.country');
 let keyword = '';
 let countryCode = '';
 
-async function searchEvents() {
+async function searchEvents() {;
   keyword = input.value;
   countryCode = select.value;
 
@@ -45,5 +45,5 @@ async function searchEvents() {
     });
 }
 
-input.addEventListener('change', searchEvents);
+input.addEventListener('submit', searchEvents);
 select.addEventListener('change', searchEvents);
