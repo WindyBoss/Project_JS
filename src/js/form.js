@@ -8,6 +8,7 @@ const select = document.querySelector('.country');
 let keyword = '';
 let countryCode = '';
 
+
 async function searchEvents(event) {
   event.preventDefault();
   keyword = input.value;
@@ -41,8 +42,11 @@ async function searchEvents(event) {
         </div>`,
         );
       });
+
+      modalWindow(gallery);
     })
     .catch(error => {
+
       Notiflix.Notify.failure('There are no that kind of events. Try other name');
     });
 }
