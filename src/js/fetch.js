@@ -5,14 +5,21 @@ class GenerateLink {
     this.page = 1;
     this.key = `9hIF6NBjrDSVNrQQJmrbBXzEzwkr0S4m`;
     this.firstPartLink = firstPartLink;
-    this.link = '';
+      this.link = '';
+      this._embedded = "";
   }
 
     makeLink() {
         this.link = `${this.firstPartLink}&keyword=${this.keyword}&sort=date,asc&page=${this.page}&apikey=${this.key}`;
-        if(this.countryCode && this.keyword === "") this.link = `${this.firstPartLink}&countryCode=${this.countryCode}&sort=date,asc&page=${this.page}&apikey=${this.key}`;
+      if(this.countryCode && this.keyword === "") this.link = `${this.firstPartLink}&countryCode=${this.countryCode}&sort=date,asc&page=${this.page}&apikey=${this.key}`;
   }
 
+    checkData(data) {
+        if (data._embedded.venues[0].name === "undefined" || !data._embedded.venues[0].name) {
+            data._embedded.venues[0].name = "No information"
+        }
+        return data;
+    }
 
   giveLink() {
     this.makeLink();
