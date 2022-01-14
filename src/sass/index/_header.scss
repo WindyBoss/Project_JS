@@ -3,10 +3,10 @@
     background: linear-gradient(
 90deg
 , #0b0b0b73 0%, #0b0b0b80 50%),url(../images/bg.jpg);
-      
+
     background-repeat: no-repeat;
     height: 364px;
-    
+
     position: relative;
   max-width: 320px;
   margin: 0 auto;
@@ -18,7 +18,7 @@ background: unset;
 .header__title-text {
  width: 212px;
    color: #DC56C5;
-    
+
     font-weight: 900;
     font-size: 18px;
     line-height: 1.222;
@@ -33,15 +33,15 @@ background: unset;
     height: 40px;
     margin-top: 25px;
     padding: 10px 40px;
-    
-    
+
+
     backdrop-filter: blur(20px);
     border-radius: 20px;
     border-style: none;
     font-size: 16px;
     line-height: 20px;
     font-weight: 400;
-    
+
 }
 .search-bar__wrap-drop{
   background-color: rgba(255,255,255,0.2);
@@ -59,14 +59,14 @@ border-radius: 20px;
    width: 270px;
     height: 40px;
     padding: 10px 40px;
-    
-    
+
+
 }
 .drop-down__item {
     list-style: none;
 }
 .drop-down__link {
-  color:  #939393;  
+  color:  #939393;
   text-decoration: none;
 }
 .search-bar__icon {
@@ -85,10 +85,10 @@ border-radius: 20px;
 .header__list{
   display: flex;
   flex-direction: column;
-  
-  
 
-  
+
+
+
 }
 .header__search-bar {
   position: absolute;

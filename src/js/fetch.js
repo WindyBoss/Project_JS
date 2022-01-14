@@ -1,31 +1,70 @@
-class GenerateLink {
-  constructor({ keyword, countryCode, firstPartLink }) {
-    this.keyword = keyword;
-    this.countryCode = countryCode;
-    this.page = 1;
-    this.key = `9hIF6NBjrDSVNrQQJmrbBXzEzwkr0S4m`;
-    this.firstPartLink = firstPartLink;
-      this.link = '';
-      this._embedded = "";
+import { RenderCard } from './card-render-plugin';
+import { launchModalWindowPlugin } from './modal-open-plugin';
+
+class MakeFetch {
+  constructor({ link, container, notification, input, selectContainer }) {
+    this.link = link;
+    this.container = container;
+    this.eventList = [];
+    this.notification = notification;
+    // this.pageNumber = 0;
+    this.input = input;
+    console.log(selectContainer);
+    this.selectContainer = selectContainer;
   }
 
-    makeLink() {
-        this.link = `${this.firstPartLink}&keyword=${this.keyword}&sort=date,asc&page=${this.page}&apikey=${this.key}`;
-      if (this.countryCode && this.keyword === "") this.link = `${this.firstPartLink}&countryCode=${this.countryCode}&sort=date,asc&page=${this.page}&apikey=${this.key}`;
-      console.log(this.link)
+  makeFetch() {
+    fetch(this.link)
+      .then(response => response.json())
+      .then(data => this._successfulFetchService(data))
+      .catch((error) => {
+        this._failedFetch(error);
+      })
+      .finally(() => {
+        this._clearInputs();
+      })
+  }
+    _successfulFetchService(data) {
+      this._clearContainer();
+      this._setEventList(data);
+      console.log(this.eventList);
+      this.eventList.forEach(element => {
+        const renderCardPlugin = new RenderCard(element);
+        const renderedCard = renderCardPlugin.returnModalWindow();
+        this.container.insertAdjacentHTML(
+          'beforeend',
+          renderedCard
+        );
+      });
+
+      launchModalWindowPlugin(this.container, 'modal-window__close--btn');
   }
 
-    checkData(data) {
-        if (data._embedded.venues[0].name === "undefined" || !data._embedded.venues[0].name) {
-            data._embedded.venues[0].name = "No information"
-        }
-        return data;
+  _failedFetch(error) {
+    console.log(error);
+    this.notification.failure('Oops something went wrong, please try again later');
+  }
+
+    _clearContainer() {
+        this.container.innerHTML = '';
     }
 
-  giveLink() {
-    this.makeLink();
-    return this.link;
+    _setEventList(data)  {
+      this.eventList = data._embedded.events;
+  }
+
+  // _setPageNumber(data) {
+  //   this.pageNumber = data.pageNumber;
+  // }
+
+  _clearInputs() {
+    if (this.input && this.selectContainer) {
+      this.input.value = '';
+      this.selectContainer.value = '';
+    }
   }
 }
 
-export { GenerateLink };
+
+export { MakeFetch };
+

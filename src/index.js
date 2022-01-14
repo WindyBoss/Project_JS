@@ -1,15 +1,9 @@
 'use strict';
-
-document.addEventListener('scroll', () => {
-  console.log(window.scrollX );
-  console.log(window.scrollY);
-
-});
-
-
 import './sass/main.scss';
-import { renderModalWindow } from './js/modal-render-plugin';
-import { ModalController } from './js/modal-open-plugin';
+
+import { GenerateLink } from './js/link-generator';
+import { MakeFetch } from './js/fetch';
+import Notiflix from 'notiflix';
 
 const gallery = document.querySelector('.gallery');
 const KEY = '9hIF6NBjrDSVNrQQJmrbBXzEzwkr0S4m';
@@ -19,39 +13,21 @@ const paginationList = document.querySelector('.pagination');
 let page = 1;
 let country = 'pl';
 
+const linkPlugin = new GenerateLink({
+  countryCode: country,
+  firstPartLink: `https://app.ticketmaster.com/discovery/v2/events.json?`,
+});
 
-async function galleryRender(country, page) {
-  let data = await fetchEvents(country, page);
-  console.log(data);
-  let pages = data.page;
-  let events = data._embedded.events;
-  let totalPages = pages.totalPages;
-  let links = data._links;
 
-  events.forEach(elm => {
-    const modalWindowPlugin = new renderModalWindow(
-      {
-        event: elm,
-        Key: KEY,
-        link: `https://app.ticketmaster.com/discovery/v2/events.json?`
-      });
+async function galleryRender(country) {
 
-    const modalWindow = modalWindowPlugin.returnModalWindow();
-    gallery.insertAdjacentHTML(
-      'beforeend',
-      `<div class="gallery__event">
-        <img class="event__image" src=${elm.images[0].url} alt =""/>
-        <div class="event__info">
-        <p class="event__tittle">${elm.name}</p>
-        <p class="event__date">${elm.dates.start.localDate}</p>
-        <p class="event__place"> ${elm._embedded.venues[0].name}</p></div>
-        ${modalWindow}
-      </div>`,
-    );
-    setTimeout(() => {
-      launchModalWindowPlugin(gallery, 'modal-window__close--btn');
-    }, 0);
-  });
+    const fetchService = new MakeFetch({
+    link: linkPlugin.giveLink(),
+    container: gallery,
+    notification: Notiflix.Notify,
+  })
+
+  fetchService.makeFetch();
 
   pagination();
 }
@@ -59,6 +35,7 @@ async function galleryRender(country, page) {
 
 
 async function fetchEvents(country, page) {
+
   const response = await fetch(
     `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=${country}&sort=date,asc&page=${page}&apikey=${KEY}`,
   )
@@ -514,29 +491,6 @@ async function pagination() {
   }
 }
 
-
-function launchModalWindowPlugin(gallery, closeBtnSelector) {
-    gallery.addEventListener('click', (e) => {
-    if(e.target.classList.value.includes('gallery__event')) {
-      const firstModal = e.target.children[2];
-      const secondModal = e.target.offsetParent.children[2];
-      const modalController = new ModalController({
-          cssClass: 'modal-closed',
-          firstClickPlace: firstModal,
-          secondClickPlace: secondModal,
-          closeBtnSelector: closeBtnSelector
-      });
-      modalController.openModal();
-      window.addEventListener('click', (e) => {
-        if (e.target === firstModal || e.target === secondModal) {
-          modalController.closeModal();
-        }
-      })
-    }
-  });
-
-}
-
 galleryRender(country, page);
 
 
@@ -641,4 +595,9 @@ export { KEY } ;
 
 // fetchEvents()
 // // pierwsza wersja koniec
+
+
+
+
+
 
