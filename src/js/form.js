@@ -8,7 +8,6 @@ const gallery = document.querySelector('.gallery');
 const select = document.querySelector('.country');
 let keyword = '';
 let countryCode = '';
-console.log(select);
 
 async function searchEvents(event) {
   event.preventDefault();

@@ -9,7 +9,7 @@ class MakeFetch {
     this.notification = notification;
     // this.pageNumber = 0;
     this.input = input;
-    console.log(selectContainer);
+
     this.selectContainer = selectContainer;
   }
 
@@ -27,7 +27,6 @@ class MakeFetch {
     _successfulFetchService(data) {
       this._clearContainer();
       this._setEventList(data);
-      console.log(this.eventList);
       this.eventList.forEach(element => {
         const renderCardPlugin = new RenderCard(element);
         const renderedCard = renderCardPlugin.returnModalWindow();
@@ -41,7 +40,6 @@ class MakeFetch {
   }
 
   _failedFetch(error) {
-    console.log(error);
     this.notification.failure('Oops something went wrong, please try again later');
   }
 

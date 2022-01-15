@@ -1,16 +1,15 @@
 .modal-window {
-  @include centeredFlex (flex);
-  position: fixed;
-  top: 0vw;
-  left: 0vw;
-  height: 100%;
-  width: 100vw;
-  background-color: getColor("modal-bg-color");
-  transform: translate(0, 0);
-  z-index: 10000;
+    @include centeredFlex (flex);
+    position: fixed;
+    top: 0vw;
+    left: 0vw;
+    height: 100%;
+    width: 100vw;
+    background-color: getColor("modal-bg-color");
+    transform: translate(0, 0);
+    z-index: 10000;
 
-  @include transform (transform);
-
+    @include transform (transform);
 
   &.modal-closed {
     transform: translate(100vw, 0);
@@ -18,67 +17,141 @@
   }
 
   &__container {
-    position: fixed;
-    top: 5%;
-    width: 280px;
-    height: 90%;
-    overflow: hidden;
-    background-color: getColor("modal-container-bg-color");
-    border-radius: 150px 0;
-    text-align: center;
-    justify-content: center;
+      background-color: getColor("modal-container-bg-color");
+      position: fixed;
+      overflow: hidden;
+      border-radius: 300px 0;
+      top: 5%;
+      width: 930px;
+      height: 90%;
+
+
+      @media screen and (min-width: $tablet) and (max-width: calc($desktop - 1))  {
+        width: 595px;
+        height: 80%;
+      }
+
+      @media screen and (max-width: calc($tablet - 1)) {
+        text-align: center;
+        justify-content: center;
+        width: 280px;
+        border-radius: 150px 0;
+    }
   }
 
-  &__info--container {
-    max-width: 90%;
-    @extend %centered-container;
+  &__info {
+    display: flex;
+    &--container {
+        max-width: 90%;
+        @extend %centered-container;
+      @media screen and (min-width: $tablet) {
+        max-width: 265px;
+        margin: 0;
+      }
+      @media screen and (min-width: $tablet) {
+        max-width: 450px;
+        margin: 0;
+      }
+    }
   }
+
+  &__main-info--container {
+    display: flex;
+    flex-direction: column;
+  }
+
 
   &__logo-img {
-    height: 100%;
 
     &--container {
       @extend %centered-container;
-      width: 102px;
-      height: 102px;
-      margin-top: 75px;
       border-radius: 50%;
       overflow: hidden;
+      margin-top: 30px;
+      width: 80px;
+      height: 80px;
+      margin-bottom: 41px;
+
+      @media screen and (min-width: $tablet) and (max-width: calc($desktop - 1)) {
+        margin-top: 28px;
+        width: 70px;
+        height: 70px;
+        margin-bottom: 43px;
+      }
+
+      @media screen and (max-width: calc($tablet - 1)) {
+        width: 102px;
+        height: 102px;
+        margin-top: 75px;
+        margin-bottom: 0;
+      }
     }
+  }
+
+  &__main--image {
+    display: block;
+    width: 360px;
+    height: 413px;
+    margin-left: 50px;
+    margin-right: 60px;
+      @media screen and (min-width: $tablet) and (max-width: calc($desktop - 1)) {
+        width: 233px;
+        margin-right: 30px;
+      }
+      @media screen and (max-width: calc($tablet - 1)) {
+        display: none;
+      }
   }
 
   &__title {
     @extend %centered-container;
-    margin-top: 10px;
     margin-bottom: 5px;
     font-weight: 600;
     color: getColor("primary-title-text");
     font-size: 20px;
     line-height: $line-height;
+    @media screen and (max-width: calc($tablet - 1)) {
+      margin-top: 10px;
+    }
+    @media screen and (min-width: $desktop) {
+      font-size: 24px;
+    }
   }
 
   &__text {
-    @extend %centered-container;
-    margin-left: 20px;
     position: relative;
     color: getColor("modal-text");
     font-size: $main-modal-font-size;
     line-height: $line-height;
+    @extend %centered-container;
+    margin-left: 20px;
     font-weight: 400;
     margin-bottom: 10px;
+
+    @media screen and (min-width: $tablet) {
+      margin-left: 0;
+    }
+    @media screen and (min-width: $desktop) {
+      font-size: 18px;
+    }
   }
 
   &__price-container .modal-window__text {
     padding-bottom: 10px;
+    @media screen and (min-width: $tablet) {
+      margin-left: 30px;
+    }
     &::before {
       display: inline-block;
       position: absolute;
-      left: -4%;
+      left: -20%;
       content: '';
       width: 20px;
       height: 20px;
     background-image: url(../images/svg/barcode.png);
-
+    @media screen and (min-width: $tablet) {
+      left: -30px;
+    }
   }
   }
   &__btn {
@@ -106,7 +179,7 @@
 
   &__more--btn {
     @extend %modal-button;
-
+    @extend %centered-container;
     width: 230px;
     height: 40px;
 
@@ -122,6 +195,14 @@
     font-size: $main-modal-font-size;
     line-height: $line-height;
     padding: 0;
+
+    @media screen and (min-width: $tablet) {
+      position: absolute;
+      bottom: 5%;
+      left: 50%;
+      width: 255px;
+      transform: translate(-50%, 0)
+    }
   }
 
   &__close--btn {

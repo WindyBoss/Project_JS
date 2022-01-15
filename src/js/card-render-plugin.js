@@ -97,7 +97,7 @@ class RenderCard {
         <div class="gallery__event">
             <img class="event__image"
               ${this.setGalleryImageContainer(this.imagesListMedium)}
-              alt ="${this.event}"
+              alt ="${this.eventName}"
               sizes="(min-width: 1200px) 25vw, (min-width: 480px) 33vw, 50vw"/>
           <div class="event__info">
             <p class="event__tittle">${this.eventName}</p>
@@ -109,11 +109,15 @@ class RenderCard {
             <div class="modal-window__container" id='${this.venueId}'>
               <svg class="modal-window__close--btn"><use class='modal-window__close--btn' href="${closeSvg}#icon-close"></use></svg>
                 <div class="modal-window__logo-img--container">
-                  <img alt="${this.event}" class="modal-window__logo-img"
+                  <img class="modal-window__logo-img"
                   ${this.setGalleryImageContainer(this.imagesListSmall)}
-                  alt ="${this.event}"/>
+                  alt ="${this.eventName}"/>
                 </div>
                 <div class="modal-window__info">
+                <img class="modal-window__main--image"
+                ${this.setGalleryImageContainer(this.imagesListLarge)}
+                  alt ="${this.eventName}"/>
+                <div class='modal-window__main-info--container'>
                   <div class="modal-window__info--container">
                     <h2 class="modal-window__title">Info</h2>
                     <p class="modal-window__text">${this.eventInfo}</p>
@@ -136,8 +140,9 @@ class RenderCard {
                     <h2 class="modal-window__title">Prices</h2>
                     ${this.standardPriceContainer}
                   </div>
+                  <button class="modal-window__more--btn" type="button">MORE FROM THIS AUTHOR</button>
                 </div>
-                <button class="modal-window__more--btn" type="button">MORE FROM THIS AUTHOR</button>
+              </div>
             </div>
           </div>
       </div>

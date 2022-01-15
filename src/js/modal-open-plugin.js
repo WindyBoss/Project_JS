@@ -116,7 +116,6 @@ function launchModalWindowPlugin(gallery, closeBtnSelector) {
 
 
       const fromAuthorFetch = modalController.getAuthorId();
-      console.log(fromAuthorFetch);
       loadMoreAuthor('opened-author-btn', fromAuthorFetch.venueId, gallery);
     }
   });
@@ -126,7 +125,6 @@ function launchModalWindowPlugin(gallery, closeBtnSelector) {
 
 function loadMoreAuthor(cssClass, newKeyword, gallery) {
   const btn = document.querySelector(`.${cssClass}`);
-  console.log(btn);
   btn.addEventListener('click',  () => {
       const linkPlugin = new GenerateLink({
       authorId: newKeyword,
