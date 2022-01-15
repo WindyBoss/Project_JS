@@ -19,15 +19,10 @@ const paginationList = document.querySelector('.pagination');
 let page = 1;
 let country = 'pl';
 
-
 async function galleryRender(country, page) {
   let data = await fetchEvents(country, page);
-  console.log(data);
   let pages = data.page;
   let events = data._embedded.events;
-  let totalPages = pages.totalPages;
-  let links = data._links;
-
   events.forEach(elm => {
     const modalWindowPlugin = new renderModalWindow(
       {
@@ -53,7 +48,7 @@ async function galleryRender(country, page) {
     }, 0);
   });
 
-  pagination();
+  pagination(page);
 }
 
 
@@ -73,447 +68,82 @@ async function fetchEvents(country, page) {
 
   return response;
 
-}
+const range = (start, end) => {
+  let length = end - start + 1;
+  return Array.from({ length }, (_, idx) => idx + start);
+};
 
-async function pagination() {
-  let data = await fetchEvents(country, page);
+const pagination = async (currentPage = 1) => {
+  const elementsToShow = 5;
+  const data = await fetchEvents(country, page);
   let pages = data.page;
-  let totalPages = pages.totalPages;
+  let totalPages = data.page.totalPages;
+  let abc = data.page;
   let links = data._links;
-  let numPages = [];
-  if (totalPages > 29) {
-    totalPages = 30;
+  let temporary;
+  if (totalPages >= 30) {
+    totalPages = 29;
   }
 
-  for (let i = 1; i < totalPages; i++) {
-    numPages.push(i);
-  }
-  console.log(numPages.length);
-  let lastLink = numPages[numPages.length - 1];
-  let firstLink = numPages[0];
-  let currentPage;
-
-  if (page == 1 && numPages.length < 6) {
-    paginationList.innerHTML = `<li class="pagination__link"><a href=${firstLink}>${firstLink}</a></li>`;
-    const lies = document.querySelectorAll('.pagination__link');
-    console.log(lies);
-    console.log(page);
+  //TEMPORARY TO TEN ZASIEG I TU 5 IFOW
+  if (currentPage == 1) {
+    temporary = range(currentPage, elementsToShow);
+  } else if (currentPage == 2) {
+    temporary = range(currentPage - 1, elementsToShow);
+  } else if (currentPage > 2 && currentPage < totalPages - 1) {
+    temporary = range(currentPage - 2, currentPage + 2);
     console.log(currentPage);
-    page = currentPage;
-    lies.forEach(elm => {
-      if (elm.textContent == pages.number) {
-        elm.classList.add('pagination__link--active');
-      }
-      elm.addEventListener('click', event => {
-        event.preventDefault();
-        paginationList.innerHTML = '';
-        page = elm.textContent;
-        currentPage = page;
-        gallery.innerHTML = '';
-        console.log(elm);
-        console.log(page);
-        console.log(currentPage);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        galleryRender(country, page);
-      });
-    });
-  }
-  if (page == 2 && numPages.length < 6) {
-    paginationList.innerHTML = `<li class="pagination__link"><a href=${currentPage}>${currentPage}</a></li><li class="pagination__link"><a href=${
-      currentPage + 1
-    }>${currentPage + 1}</a></li>`;
-    const lies = document.querySelectorAll('.pagination__link');
-    console.log(lies);
-    console.log(page);
-    console.log(currentPage);
-    let currentPage;
-    currentPage = Number(page);
-    lies.forEach(elm => {
-      if (elm.textContent == pages.number) {
-        elm.classList.add('pagination__link--active');
-      }
-      elm.addEventListener('click', event => {
-        event.preventDefault();
-        paginationList.innerHTML = '';
-        page = elm.textContent;
-        currentPage = page;
-        gallery.innerHTML = '';
-        console.log(elm);
-        console.log(page);
-        console.log(currentPage);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        galleryRender(country, page);
-      });
-    });
-  }
-  if (page == 3 && numPages.length < 6) {
-    paginationList.innerHTML = `<li class="pagination__link"><a href=${currentPage}>${currentPage}</a></li><li class="pagination__link"><a href=${
-      currentPage + 1
-    }>${currentPage + 1}</a></li><li class="pagination__link"><a href=${currentPage + 2}>${
-      currentPage + 2
-    }</a></li>`;
-    const lies = document.querySelectorAll('.pagination__link');
-    console.log(lies);
-    console.log(page);
-    console.log(currentPage);
-    let currentPage;
-    currentPage = Number(page);
-    lies.forEach(elm => {
-      if (elm.textContent == pages.number) {
-        elm.classList.add('pagination__link--active');
-      }
-      elm.addEventListener('click', event => {
-        event.preventDefault();
-        paginationList.innerHTML = '';
-        page = elm.textContent;
-        currentPage = page;
-        gallery.innerHTML = '';
-        console.log(elm);
-        console.log(page);
-        console.log(currentPage);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        galleryRender(country, page);
-      });
-    });
-  }
-  if (page == 4 && numPages.length < 6) {
-    paginationList.innerHTML = `<li class="pagination__link"><a href=${currentPage}>${currentPage}</a></li><li class="pagination__link"><a href=${
-      currentPage + 1
-    }>${currentPage + 1}</a></li><li class="pagination__link"><a href=${currentPage + 2}>${
-      currentPage + 2
-    }</a></li><li class="pagination__link"><a href=${currentPage + 3}>${currentPage + 3}</a></li>`;
-    const lies = document.querySelectorAll('.pagination__link');
-    console.log(lies);
-    console.log(page);
-    console.log(currentPage);
-    let currentPage;
-    currentPage = Number(page);
-    lies.forEach(elm => {
-      if (elm.textContent == pages.number) {
-        elm.classList.add('pagination__link--active');
-      }
-      elm.addEventListener('click', event => {
-        event.preventDefault();
-        paginationList.innerHTML = '';
-        page = elm.textContent;
-        currentPage = page;
-        gallery.innerHTML = '';
-        console.log(elm);
-        console.log(page);
-        console.log(currentPage);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        galleryRender(country, page);
-      });
-    });
-  }
-  if (page == 5 && numPages.length < 6) {
-    paginationList.innerHTML = `<li class="pagination__link"><a href=${currentPage}>${currentPage}</a></li><li class="pagination__link"><a href=${
-      currentPage + 1
-    }>${currentPage + 1}</a></li><li class="pagination__link"><a href=${currentPage + 2}>${
-      currentPage + 2
-    }</a></li><li class="pagination__link"><a href=${currentPage + 3}>${
-      currentPage + 3
-    }</a></li><li class="pagination__link"><a href=${currentPage + 4}>${currentPage + 4}</a></li>`;
-    const lies = document.querySelectorAll('.pagination__link');
-    console.log(lies);
-    console.log(page);
-    console.log(currentPage);
-    let currentPage;
-    currentPage = Number(page);
-    lies.forEach(elm => {
-      if (elm.textContent == pages.number) {
-        elm.classList.add('pagination__link--active');
-      }
-      elm.addEventListener('click', event => {
-        event.preventDefault();
-        paginationList.innerHTML = '';
-        page = elm.textContent;
-        currentPage = page;
-        gallery.innerHTML = '';
-        console.log(elm);
-        console.log(page);
-        console.log(currentPage);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        galleryRender(country, page);
-      });
-    });
-  }
-  if (page == 1 && numPages.length >= 6) {
-    paginationList.innerHTML = `<li class="pagination__link"><a href=${firstLink}>${firstLink}</a></li><li class="pagination__link"><a href=${numPages[1]}>${numPages[1]}</a></li><li class="pagination__link"><a href=${numPages[2]}>${numPages[2]}</a></li><li class="pagination__link"><a href=${numPages[3]}>${numPages[3]}</a></li><li class="pagination__link"><a href=${numPages[4]}>${numPages[4]}</a></li><span class="pagination__link">...</span><li class="pagination__link"><a href=${lastLink}>${lastLink}</a></li>`;
-    const lies = document.querySelectorAll('.pagination__link');
-    console.log(lies);
-    console.log(page);
-    console.log(currentPage);
-    page = currentPage;
-    lies.forEach(elm => {
-      if (elm.textContent == pages.number) {
-        elm.classList.add('pagination__link--active');
-      }
-      elm.addEventListener('click', event => {
-        event.preventDefault();
-        paginationList.innerHTML = '';
-        page = elm.textContent;
-        currentPage = page;
-        gallery.innerHTML = '';
-        console.log(elm);
-        console.log(page);
-        console.log(currentPage);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        galleryRender(country, page);
-      });
-    });
-  }
-  if (page == 2 && numPages.length >= 6) {
-    let currentPage;
-    currentPage = Number(page);
-    paginationList.innerHTML = `<li class="pagination__link"><a href=${currentPage - 1}>${
-      currentPage - 1
-    }</a></li><li class="pagination__link"><a href=${currentPage}>${currentPage}</a></li><li class="pagination__link"><a href=${
-      `currentPage` + 1
-    }>${currentPage + 1}</a></li><li class="pagination__link"><a href=${currentPage + 2}>${
-      currentPage + 2
-    }</a></li><li class="pagination__link"><a href=${currentPage + 3}>${
-      currentPage + 3
-    }</a></li><span class="pagination__link">...</span><li class="pagination__link"><a href=${lastLink}>${lastLink}</a></li>`;
-    const lies = document.querySelectorAll('.pagination__link');
-    console.log(lies);
-    lies.forEach(elm => {
-      if (elm.textContent == pages.number) {
-        elm.classList.add('pagination__link--active');
-      }
-      elm.addEventListener('click', event => {
-        event.preventDefault();
-        paginationList.innerHTML = '';
-        page = elm.textContent;
-        console.log(elm);
-        currentPage = page;
-
-        gallery.innerHTML = '';
-        console.log(page);
-        console.log(currentPage);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        galleryRender(country, page);
-      });
-    });
-  }
-  if (page == 3 && numPages.length >= 6) {
-    let currentPage;
-    currentPage = Number(page);
-    paginationList.innerHTML = `<li class="pagination__link"><a href=${currentPage - 2}>${
-      currentPage - 2
-    }</a></li><li class="pagination__link"><a href=${currentPage - 1}>${
-      currentPage - 1
-    }</a></li><li class="pagination__link"><a href=${currentPage}>${currentPage}</a></li><li class="pagination__link"><a href=${
-      currentPage + 1
-    }>${currentPage + 1}</a></li><li class="pagination__link"><a href=${currentPage + 2}>${
-      currentPage + 2
-    }</a></li><span class="pagination__link">...</span><li class="pagination__link"><a href=${lastLink}>${lastLink}</a></li>`;
-    const lies = document.querySelectorAll('.pagination__link');
-    console.log(lies);
-    lies.forEach(elm => {
-      if (elm.textContent == pages.number) {
-        elm.classList.add('pagination__link--active');
-      }
-      elm.addEventListener('click', event => {
-        event.preventDefault();
-        paginationList.innerHTML = '';
-        page = elm.textContent;
-        currentPage = page;
-        gallery.innerHTML = '';
-        console.log(page);
-        console.log(currentPage);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        galleryRender(country, page);
-      });
-    });
-  }
-  if (page == 4 && numPages.length >= 6) {
-    let currentPage;
-    currentPage = Number(page);
-    paginationList.innerHTML = `<li class="pagination__link"><a href=${currentPage - 3}>${
-      currentPage - 3
-    }</a></li><li class="pagination__link"><a href=${currentPage - 2}>${
-      currentPage - 2
-    }</a></li><li class="pagination__link"><a href=${currentPage - 1}>${
-      currentPage - 1
-    }</a></li><li class="pagination__link"><a href=${currentPage}>${currentPage}</a></li><li class="pagination__link"><a href=${
-      currentPage + 1
-    }>${
-      currentPage + 1
-    }</a></li><span class="pagination__link">...</span><li class="pagination__link"><a href=${lastLink}>${lastLink}</a></li>`;
-    const lies = document.querySelectorAll('.pagination__link');
-    console.log(lies);
-    lies.forEach(elm => {
-      if (elm.textContent == pages.number) {
-        elm.classList.add('pagination__link--active');
-      }
-      elm.addEventListener('click', event => {
-        event.preventDefault();
-        paginationList.innerHTML = '';
-        page = elm.textContent;
-        currentPage = page;
-        gallery.innerHTML = '';
-        console.log(page);
-        console.log(currentPage);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        galleryRender(country, page);
-      });
-    });
+  } else if (currentPage == totalPages - 1) {
+    temporary = range(currentPage - 3, currentPage + 1);
+  } else if (currentPage == totalPages) {
+    temporary = range(currentPage - 4, currentPage);
   }
 
-  if (page >= 5 && numPages.length >= 6) {
-    let currentPage;
-    currentPage = Number(page);
-    paginationList.innerHTML = `<li class="pagination__link"><a href=${firstLink}>${firstLink}</a></li><span class="pagination__link">...</span><li class="pagination__link"><a href=${
-      currentPage - 1
-    }>${
-      currentPage - 1
-    }</a></li><li class="pagination__link"><a href=${currentPage}>${currentPage}</a></li><li class="pagination__link"><a href=${
-      currentPage + 1
-    }>${
-      currentPage + 1
-    }</a></li><span class="pagination__link">...</span><li class="pagination__link"><a href=${lastLink}>${lastLink}</a></li>`;
-    const lies = document.querySelectorAll('.pagination__link');
-    console.log(lies);
-    lies.forEach(elm => {
-      if (elm.textContent == pages.number) {
-        elm.classList.add('pagination__link--active');
-      }
-      elm.addEventListener('click', event => {
-        event.preventDefault();
-        paginationList.innerHTML = '';
-        page = elm.textContent;
-        currentPage = page;
-        gallery.innerHTML = '';
-        console.log(page);
-        console.log(currentPage);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        galleryRender(country, page);
-      });
-    });
-  }
+  //DODAJE TUTAJ TOTALPAGES ZEBY SPRAWDZIC CZY POTRZEBNE SA TRZY KROPKI
+  renderPagination(temporary, currentPage, totalPages);
+};
 
-  if (page == numPages.length - 3 && numPages.length >= 6) {
-    let currentPage;
-    currentPage = Number(page);
-    paginationList.innerHTML = `<li class="pagination__link"><a href=${firstLink}>${firstLink}</a></li><span class="pagination__link">...</span><li class="pagination__link"><a href=${
-      currentPage - 1
-    }>${
-      currentPage - 1
-    }</a></li><li class="pagination__link"><a href=${currentPage}>${currentPage}</a></li><li class="pagination__link"><a href=${
-      currentPage + 1
-    }>${currentPage + 1}</a></li><li class="pagination__link"><a href=${currentPage + 2}>${
-      currentPage + 2
-    }</a></li><li class="pagination__link"><a href=${lastLink}>${lastLink}</a></li>`;
-    const lies = document.querySelectorAll('.pagination__link');
-    console.log(lies);
-    lies.forEach(elm => {
-      if (elm.textContent == pages.number) {
-        elm.classList.add('pagination__link--active');
-      }
-      elm.addEventListener('click', event => {
-        event.preventDefault();
-        paginationList.innerHTML = '';
-        page = elm.textContent;
-        currentPage = page;
-        gallery.innerHTML = '';
-        console.log(page);
-        console.log(currentPage);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        galleryRender(country, page);
-      });
-    });
+const renderPagination = (pagination, currentPage, totalPages) => {
+  //TUTAJ SPRAWDZAM CZY JEST MNIEJSZE ROWNE 6 JESLI TAK DO DODAJE KROPKI I NA KONCU TOTALPAGES
+  if (currentPage <= totalPages - 3) {
+    pagination.push('...');
+    pagination.push(totalPages);
   }
-  if (page == numPages.length - 2 && numPages.length >= 6) {
-    let currentPage;
-    currentPage = Number(page);
-    paginationList.innerHTML = `<li class="pagination__link"><a href=${firstLink}>${firstLink}</a></li><span class="pagination__link">...</span><li class="pagination__link"><a href=${
-      currentPage - 1
-    }>${
-      currentPage - 1
-    }</a></li><li class="pagination__link"><a href=${currentPage}>${currentPage}</a></li><li class="pagination__link"><a href=${
-      currentPage + 1
-    }>${
-      currentPage + 1
-    }</a></li></li><li class="pagination__link"><a href=${lastLink}>${lastLink}</a></li>`;
-    const lies = document.querySelectorAll('.pagination__link');
-    console.log(lies);
-    lies.forEach(elm => {
-      if (elm.textContent == pages.number) {
-        elm.classList.add('pagination__link--active');
-      }
-      elm.addEventListener('click', event => {
-        event.preventDefault();
-        paginationList.innerHTML = '';
-        page = elm.textContent;
-        currentPage = page;
-        gallery.innerHTML = '';
-        console.log(page);
-        console.log(currentPage);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        galleryRender(country, page);
-      });
-    });
-  }
-  if (page == numPages.length - 1 && numPages.length >= 6) {
-    let currentPage;
-    currentPage = Number(page);
-    paginationList.innerHTML = `<li class="pagination__link"><a href=${firstLink}>${firstLink}</a></li><span class="pagination__link">...</span><li class="pagination__link"><a href=${
-      currentPage - 2
-    }>${currentPage - 2}</a></li><li class="pagination__link"><a href=${currentPage - 1}>${
-      currentPage - 1
-    }</a></li><li class="pagination__link"><a href=${currentPage}>${currentPage}</a></li></li><li class="pagination__link"><a href=${lastLink}>${lastLink}</a></li>`;
-    const lies = document.querySelectorAll('.pagination__link');
-    console.log(lies);
-    lies.forEach(elm => {
-      if (elm.textContent == pages.number) {
-        elm.classList.add('pagination__link--active');
-      }
-      elm.addEventListener('click', event => {
-        event.preventDefault();
-        paginationList.innerHTML = '';
-        page = elm.textContent;
-        currentPage = page;
-        gallery.innerHTML = '';
-        console.log(page);
-        console.log(currentPage);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        galleryRender(country, page);
-      });
-    });
-  }
-  if (page == numPages.length && numPages.length >= 6) {
-    let currentPage;
-    currentPage = Number(page);
-    paginationList.innerHTML = `<li class="pagination__link"><a href=${firstLink}>${firstLink}</a></li><span class="pagination__link">...</span><li class="pagination__link"><a href=${
-      currentPage - 3
-    }>${currentPage - 3}</a></li><li class="pagination__link"><a href=${currentPage - 2}>${
-      currentPage - 2
-    }</a></li><li class="pagination__link"><a href=${currentPage - 1}>${
-      currentPage - 1
-    }</a></li></li><li class="pagination__link"><a href=${currentPage}>${currentPage}</a></li>`;
-    const lies = document.querySelectorAll('.pagination__link');
-    console.log(lies);
-    lies.forEach(elm => {
-      if (elm.textContent == pages.number) {
-        elm.classList.add('pagination__link--active');
-      }
-      elm.addEventListener('click', event => {
-        event.preventDefault();
-        paginationList.innerHTML = '';
-        page = elm.textContent;
-        currentPage = page;
-        gallery.innerHTML = '';
-        console.log(page);
-        console.log(currentPage);
+  paginationList.innerHTML = pagination.map((num, index) => paginationTemplate(num, currentPage));
+  //wyłączenie możliwości kliknięcia w kropki
+  const dots = document.querySelector('.pagination__dots');
+  dots.disabled = true;
+};
 
-        galleryRender(country, page);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    });
-  }
-}
+//TU DODALEM SPRAWDZANIE CZY JEST KROPKAMI ( ZEBY NIE DODAWALO BUTTON TYLKO ZWYKLE LI)
+const paginationTemplate = (num, currentPage) =>
+  num != '...'
+    ? `
+  <li class='pagination__link${num == currentPage ? '--active' : ''}'>
+    <button>${num}</button>
+  </li>
+`
+    : `<span class='pagination__link--dots'>
+<button class='pagination__dots'>${num}</button>
+</span>`;
 
+const handlePaginationOnClick = async e => {
+  e.preventDefault();
+  paginationList.innerHTML = '';
+  gallery.innerHTML = '';
+
+  document
+    .querySelectorAll('.pagination__link')
+    .forEach(pagination => pagination.classList.remove('pagination__link--active'));
+
+  e.target.closest('li')?.classList.add('pagination__link--active');
+
+  page = e.target.textContent;
+
+  await galleryRender(country, +page);
+};
+
+paginationList.addEventListener('click', handlePaginationOnClick);
 
 function launchModalWindowPlugin(gallery, closeBtnSelector) {
     gallery.addEventListener('click', (e) => {
@@ -538,8 +168,6 @@ function launchModalWindowPlugin(gallery, closeBtnSelector) {
 }
 
 galleryRender(country, page);
-
-
 
 export { KEY } ;
 
@@ -641,4 +269,3 @@ export { KEY } ;
 
 // fetchEvents()
 // // pierwsza wersja koniec
-
