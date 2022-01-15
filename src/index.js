@@ -68,108 +68,110 @@ async function fetchEvents(country, page) {
 
   return response;
 
-const range = (start, end) => {
-  let length = end - start + 1;
-  return Array.from({ length }, (_, idx) => idx + start);
-};
+}
 
-const pagination = async (currentPage = 1) => {
-  const elementsToShow = 5;
-  const data = await fetchEvents(country, page);
-  let pages = data.page;
-  let totalPages = data.page.totalPages;
-  let abc = data.page;
-  let links = data._links;
-  let temporary;
-  if (totalPages >= 30) {
-    totalPages = 29;
-  }
+  const range = (start, end) => {
+    let length = end - start + 1;
+    return Array.from({ length }, (_, idx) => idx + start);
+  };
 
-  //TEMPORARY TO TEN ZASIEG I TU 5 IFOW
-  if (currentPage == 1) {
-    temporary = range(currentPage, elementsToShow);
-  } else if (currentPage == 2) {
-    temporary = range(currentPage - 1, elementsToShow);
-  } else if (currentPage > 2 && currentPage < totalPages - 1) {
-    temporary = range(currentPage - 2, currentPage + 2);
-    console.log(currentPage);
-  } else if (currentPage == totalPages - 1) {
-    temporary = range(currentPage - 3, currentPage + 1);
-  } else if (currentPage == totalPages) {
-    temporary = range(currentPage - 4, currentPage);
-  }
+  const pagination = async (currentPage = 1) => {
+    const elementsToShow = 5;
+    const data = await fetchEvents(country, page);
+    let pages = data.page;
+    let totalPages = data.page.totalPages;
+    let abc = data.page;
+    let links = data._links;
+    let temporary;
+    if (totalPages >= 30) {
+      totalPages = 29;
+    }
 
-  //DODAJE TUTAJ TOTALPAGES ZEBY SPRAWDZIC CZY POTRZEBNE SA TRZY KROPKI
-  renderPagination(temporary, currentPage, totalPages);
-};
+    //TEMPORARY TO TEN ZASIEG I TU 5 IFOW
+    if (currentPage == 1) {
+      temporary = range(currentPage, elementsToShow);
+    } else if (currentPage == 2) {
+      temporary = range(currentPage - 1, elementsToShow);
+    } else if (currentPage > 2 && currentPage < totalPages - 1) {
+      temporary = range(currentPage - 2, currentPage + 2);
+      console.log(currentPage);
+    } else if (currentPage == totalPages - 1) {
+      temporary = range(currentPage - 3, currentPage + 1);
+    } else if (currentPage == totalPages) {
+      temporary = range(currentPage - 4, currentPage);
+    }
 
-const renderPagination = (pagination, currentPage, totalPages) => {
-  //TUTAJ SPRAWDZAM CZY JEST MNIEJSZE ROWNE 6 JESLI TAK DO DODAJE KROPKI I NA KONCU TOTALPAGES
-  if (currentPage <= totalPages - 3) {
-    pagination.push('...');
-    pagination.push(totalPages);
-  }
-  paginationList.innerHTML = pagination.map((num, index) => paginationTemplate(num, currentPage));
-  //wyłączenie możliwości kliknięcia w kropki
-  const dots = document.querySelector('.pagination__dots');
-  dots.disabled = true;
-};
+    //DODAJE TUTAJ TOTALPAGES ZEBY SPRAWDZIC CZY POTRZEBNE SA TRZY KROPKI
+    renderPagination(temporary, currentPage, totalPages);
+  };
 
-//TU DODALEM SPRAWDZANIE CZY JEST KROPKAMI ( ZEBY NIE DODAWALO BUTTON TYLKO ZWYKLE LI)
-const paginationTemplate = (num, currentPage) =>
-  num != '...'
-    ? `
+  const renderPagination = (pagination, currentPage, totalPages) => {
+    //TUTAJ SPRAWDZAM CZY JEST MNIEJSZE ROWNE 6 JESLI TAK DO DODAJE KROPKI I NA KONCU TOTALPAGES
+    if (currentPage <= totalPages - 3) {
+      pagination.push('...');
+      pagination.push(totalPages);
+    }
+    paginationList.innerHTML = pagination.map((num, index) => paginationTemplate(num, currentPage));
+    //wyłączenie możliwości kliknięcia w kropki
+    const dots = document.querySelector('.pagination__dots');
+    dots.disabled = true;
+  };
+
+  //TU DODALEM SPRAWDZANIE CZY JEST KROPKAMI ( ZEBY NIE DODAWALO BUTTON TYLKO ZWYKLE LI)
+  const paginationTemplate = (num, currentPage) =>
+    num != '...'
+      ? `
   <li class='pagination__link${num == currentPage ? '--active' : ''}'>
     <button>${num}</button>
   </li>
 `
-    : `<span class='pagination__link--dots'>
+      : `<span class='pagination__link--dots'>
 <button class='pagination__dots'>${num}</button>
 </span>`;
 
-const handlePaginationOnClick = async e => {
-  e.preventDefault();
-  paginationList.innerHTML = '';
-  gallery.innerHTML = '';
+  const handlePaginationOnClick = async e => {
+    e.preventDefault();
+    paginationList.innerHTML = '';
+    gallery.innerHTML = '';
 
-  document
-    .querySelectorAll('.pagination__link')
-    .forEach(pagination => pagination.classList.remove('pagination__link--active'));
+    document
+      .querySelectorAll('.pagination__link')
+      .forEach(pagination => pagination.classList.remove('pagination__link--active'));
 
-  e.target.closest('li')?.classList.add('pagination__link--active');
+    e.target.closest('li')?.classList.add('pagination__link--active');
 
-  page = e.target.textContent;
+    page = e.target.textContent;
 
-  await galleryRender(country, +page);
-};
+    await galleryRender(country, +page);
+  };
 
-paginationList.addEventListener('click', handlePaginationOnClick);
+  paginationList.addEventListener('click', handlePaginationOnClick);
 
-function launchModalWindowPlugin(gallery, closeBtnSelector) {
+  function launchModalWindowPlugin(gallery, closeBtnSelector) {
     gallery.addEventListener('click', (e) => {
-    if(e.target.classList.value.includes('gallery__event')) {
-      const firstModal = e.target.children[2];
-      const secondModal = e.target.offsetParent.children[2];
-      const modalController = new ModalController({
+      if (e.target.classList.value.includes('gallery__event')) {
+        const firstModal = e.target.children[2];
+        const secondModal = e.target.offsetParent.children[2];
+        const modalController = new ModalController({
           cssClass: 'modal-closed',
           firstClickPlace: firstModal,
           secondClickPlace: secondModal,
           closeBtnSelector: closeBtnSelector
-      });
-      modalController.openModal();
-      window.addEventListener('click', (e) => {
-        if (e.target === firstModal || e.target === secondModal) {
-          modalController.closeModal();
-        }
-      })
-    }
-  });
+        });
+        modalController.openModal();
+        window.addEventListener('click', (e) => {
+          if (e.target === firstModal || e.target === secondModal) {
+            modalController.closeModal();
+          }
+        })
+      }
+    });
 
-}
+  }
 
-galleryRender(country, page);
+  galleryRender(country, page);
 
-export { KEY } ;
+  export { KEY };
 
 
 
