@@ -1,4 +1,5 @@
-import { GenerateLink } from './fetch';
+import { GenerateLink } from './link-generator';
+import { MakeFetch } from './fetch';
 import Notiflix from 'notiflix';
 
 const form = document.querySelector('.search-bar__form');
@@ -7,7 +8,6 @@ const gallery = document.querySelector('.gallery');
 const select = document.querySelector('.country');
 let keyword = '';
 let countryCode = '';
-
 
 async function searchEvents(event) {
   event.preventDefault();
@@ -20,36 +20,20 @@ async function searchEvents(event) {
     firstPartLink: `https://app.ticketmaster.com/discovery/v2/events.json?`,
   });
 
-  return await fetch(linkPlugin.giveLink())
-    .then(response => {
-      return response.json();
-    })
-    .then(data => {
-      const {
-        _embedded: { events},
-      } = data;
-      gallery.innerHTML = '';
-      events.forEach(element => {
-        element = linkPlugin.checkData(element);
-        gallery.insertAdjacentHTML(
-          'beforeend',
-          `<div class="gallery__event">
-      <img class="event__image" src=${element.images[0].url} alt =""/>
-       <div class="event__info">
-       <p class="event__tittle">${element.name}</p>
-       <p class="event__date">${element.dates.start.localDate}</p>
-       <p class="event__place"> ${element._embedded.venues[0].name}</p></div>
-        </div>`,
-        );
-      });
 
-      modalWindow(gallery);
-    })
-    .catch(error => {
+  const fetchService = new MakeFetch({
+    link: linkPlugin.giveLink(),
+    container: gallery,
+    notification: Notiflix.Notify,
+    input: input,
+    selectContainer: select,
+  })
 
-      Notiflix.Notify.failure('There are no that kind of events. Try other name');
-    });
+
+  fetchService.makeFetch();
 }
+
+
 
 form.addEventListener('submit', searchEvents);
 select.addEventListener('change', searchEvents);

@@ -4,6 +4,8 @@
   padding-top: 30px;
   padding-left: 25px;
   padding-right: 25px;
+  overflow: hidden;
+
 }
 
 .gallery {
@@ -56,7 +58,7 @@
   text-align: center;
   color: #dc56c5;
   margin-top: 5px;
-}
+
 
 .event__date {
   font-family: Montserrat;
@@ -68,7 +70,7 @@
   text-align: center;
   color: #ffffff;
   margin-top: 5px;
-}
+ }
 
 .event__place {
   max-width: 138px;
