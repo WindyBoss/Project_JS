@@ -1,4 +1,5 @@
 .header {
+
         background: (linear, left top, right top, from(#0b0b0b73), color-stop(50%, #0b0b0b80)),url(../images/bg.jpg);
     background: linear-gradient(
 90deg
@@ -11,11 +12,21 @@
   max-width: 320px;
   margin: 0 auto;
 }
-.header .container {
-background: unset;
 
+.header .container {
+  background: unset;
+  margin: 0px;
+  padding: 0px;
 }
+
+.header__logo {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
 .header__title-text {
+
  width: 212px;
    color: #DC56C5;
 
@@ -27,48 +38,82 @@ background: unset;
   top: 78px;
   left: 60px;
 }
+
+
 .search-bar__wrap {
     box-sizing: border-box;
-    width: 270px;
-    height: 40px;
-    margin-top: 25px;
     padding: 10px 40px;
-
-
     backdrop-filter: blur(20px);
     border-radius: 20px;
     border-style: none;
-    font-size: 16px;
-    line-height: 20px;
-    font-weight: 400;
+  width: 212px;
+  height: 44px;
+  color: getColor("primary-title-text");
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 1.222;
+  text-align: center;
+  margin-top: 78px;
+  margin-left: 53px;
+  margin-bottom: 25px;
+}
+
+.header__search-bar {
+  margin-left: 25px;
+  animation: moveleft 5s 1;
+  animation-delay: -2s;
 
 }
-.search-bar__wrap-drop{
-  background-color: rgba(255,255,255,0.2);
+
+.search-bar__wrap{
+  width: 270px;
+  height: 40px;
+  margin-bottom: 25px;
 }
-.search-bar__input {
-  position: absolute;
-  left: 0px;
-  top: 0px;
-border: hidden;
-    background: rgba(255, 255, 255, 0.2);
-backdrop-filter: blur(20px);
-/* Note: backdrop-filter has minimal browser support */
 
-border-radius: 20px;
-   width: 270px;
-    height: 40px;
-    padding: 10px 40px;
 
+.search-bar__input{
+  border: hidden;
+  padding: 10px 30px;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 120px;
+  color: getColor("secondary-text");  
+  font-size: 16px;
+  line-height: 1.25;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+
+.country {
+  border: hidden;
+  background: rgba(255, 255, 255, 0.2);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(50px);
+  border-radius: 20px;
+  color: getColor("secondary-text");  
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 1.25;
+  font-weight: 400;
+  padding: 10px 30px;
 
 }
+    
+
 .drop-down__item {
     list-style: none;
 }
+
 .drop-down__link {
-  color:  #939393;
+
+  color:  getColor("secondary-text");  
+
   text-decoration: none;
 }
+
 .search-bar__icon {
   height: 12px;
   width: 12px;
@@ -76,22 +121,79 @@ border-radius: 20px;
   right: 30px;
   bottom: 13px;
 }
+
 .drop-down__icon {
   width: 10px;
   height: 15px;
   position: absolute;
   right: 30px;
 }
+
 .header__list{
   display: flex;
   flex-direction: column;
 
+}
 
 
+.animate-logo{
+-webkit-animation: bounce-in 1s ease-in-out 0s 1 normal;
+-moz-animation: bounce-in 1s ease-in-out 0s 1 normal;
+-ms-animation: bounce-in 1s ease-in-out 0s 1 normal;
+animation: bounce-in 1s ease-in-out 0s 1 normal;
 
 }
-.header__search-bar {
-  position: absolute;
-  left: 25px;
-  top: 123px;
+
+@-webkit-keyframes bounce-in {
+0%{ opacity: 0; -webkit-transform: scale(.3); transform: scale(.3); }
+50%{ opacity: 1; -webkit-transform: scale(1.0); transform: scale(1.0); }
+70%{ -webkit-transform: scale(0.9); transform: scale(0.9); }
+100%{ -webkit-transform: scale(1); transform: scale(1); }
 }
+
+@keyframes bounce-in {
+0%{ opacity: 0; transform: scale(.3); }
+50%{ opacity: 1; transform: scale(1.0); }
+70%{ transform: scale(0.9); }
+100%{ transform: scale(1); }
+}
+
+.animate-left {
+  position: relative;
+  -webkit-animation: moveleft 5s 1 -2s;
+  -moz-animation: moveleft 5s 1 -2s;
+  -ms-animation: moveleft 5s 1 -2s;
+  animation: moveleft 5s 1 -2s;
+}
+
+.animate-right {
+  position: relative;
+  -webkit-animation: moveright 5s 1 -2s;
+  -moz-animation: moveright 5s 1 -2s;
+  -ms-animation: moverighy 5s 1 -2s;
+  animation: moveright 5s 1 -2s;
+}
+
+@keyframes moveleft {
+  from {left: -200px;}
+  to {left: 0px;}
+}
+
+@keyframes moveright {
+  from {left: 200px;}
+  to {left: 0px;}
+}
+
+.animate-title{
+  animation: moverotate 2s linear 1;
+}
+
+@keyframes moverotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
