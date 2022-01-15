@@ -21,6 +21,7 @@ body {
     url(../images/main-bg.png);
   background: linear-gradient(90deg, #0b0b0b73 0%, #0b0b0b80 50%), url(../images/main-bg.png);
   margin: 0 auto;
+  overflow: hidden;
 }
 
 * {
@@ -37,4 +38,8 @@ body {
 
 .list {
   list-style: none;
+}
+
+a {
+  text-decoration: none;
 }
