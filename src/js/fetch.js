@@ -11,6 +11,8 @@ class MakeFetch {
     this.input = input;
 
     this.selectContainer = selectContainer;
+
+    this.pageNumber = 0;
   }
 
   makeFetch() {
@@ -24,7 +26,8 @@ class MakeFetch {
         this._clearInputs();
       })
   }
-    _successfulFetchService(data) {
+  _successfulFetchService(data) {
+    this._setPageNumber(data);
       this._clearContainer();
       this._setEventList(data);
       this.eventList.forEach(element => {
@@ -51,9 +54,15 @@ class MakeFetch {
       this.eventList = data._embedded.events;
   }
 
-  // _setPageNumber(data) {
-  //   this.pageNumber = data.pageNumber;
-  // }
+  _setPageNumber(data) {
+    this.pageNumber = data.page.totalPages;
+    console.log(this.pageNumber);
+  }
+
+  _getPageNumber() {
+    console.log(this.pageNumber)
+    return this.pageNumber;
+  }
 
   _clearInputs() {
     if (this.input && this.selectContainer) {

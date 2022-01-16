@@ -20,20 +20,71 @@ const linkPlugin = new GenerateLink({
 });
 
 
-async function galleryRender(country) {
-
-
-
-    const fetchService = new MakeFetch({
+async function galleryRender() {
+  const fetchService = new MakeFetch({
     link: linkPlugin.giveLink(),
     container: gallery,
     notification: Notiflix.Notify,
   })
+    console.log('e.target.textContent');
 
   fetchService.makeFetch();
 
-  pagination(page);
+  setTimeout(() => {
+    const pageNumber = fetchService._getPageNumber();
+    const setPagination = new Pagination({
+      totalPageNumber: pageNumber,
+      paginationContainer: paginationList,
+    });
+    setPagination._renderThePage();
+    setPagination._addEventListener();
+  }, 3000)
 }
+
+class Pagination {
+  constructor({ totalPageNumber, paginationContainer }) {
+    this.paginationContainer = paginationContainer;
+    this.totalPageNumber = totalPageNumber;
+  }
+
+  _renderThePage() {
+
+    if (this.totalPageNumber === 0) {
+      this.paginationContainer.insertAdjacentHTML('beforeend', '');
+    } else {
+      for (let i = 1; i < 6; i++) {
+        const pageRendering = `<li class='pagination__link'><button type='button'>${i}</button></li>`
+        this.paginationContainer.insertAdjacentHTML('beforeend', pageRendering);
+      }
+      const pageDots = '<li class="pagination__link">...</li>'
+      this.paginationContainer.insertAdjacentHTML('beforeend', pageDots);
+      const pageLastNumber = `<li class='pagination__link'><button type='button'>${this.totalPageNumber}</button></li>`
+      this.paginationContainer.insertAdjacentHTML('beforeend', pageLastNumber);
+    }
+  }
+
+  _addEventListener() {
+    this.paginationContainer.addEventListener('click', this.paginationClick)
+  }
+
+  paginationClick(e) {
+    console.log(e.target.textContent);
+    const paginationLinkPlugin = new GenerateLink({
+      countryCode: country,
+      firstPartLink: `https://app.ticketmaster.com/discovery/v2/events.json?`,
+      pageNumber: e.target.textContent,
+    });
+    const paginationFetchService = new MakeFetch({
+      link: paginationLinkPlugin.giveLink(),
+      container: gallery,
+      notification: Notiflix.Notify,
+    })
+    paginationFetchService.makeFetch();
+    e.preventDefault();
+  }
+
+}
+    // console.log('e.target.textContent');
 
 
 
@@ -136,7 +187,7 @@ galleryRender(country, page);
   paginationList.addEventListener('click', handlePaginationOnClick);
 
 
-  galleryRender(country, page);
+  galleryRender(country, page, { once: true });
 
   export { KEY };
 
