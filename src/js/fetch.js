@@ -1,16 +1,28 @@
 import { RenderCard } from './card-render-plugin';
 import { launchModalWindowPlugin } from './modal-open-plugin';
+import { GenerateLink } from './link-generator';
 
 class MakeFetch {
-  constructor({ link, container, notification, input, selectContainer }) {
-    this.link = link;
+  constructor({ container, notification, input, selectContainer, keyword, countryCode, authorId, pageNumber }) {
+    this.clearFetch();
     this.container = container;
     this.eventList = [];
     this.notification = notification;
     this.input = input;
     this.selectContainer = selectContainer;
     this.pageNumber = 0;
+    this.keyword = keyword;
+    this.countryCode = countryCode;
+    this.authorId = authorId;
+    this.pageNumber = pageNumber;
 
+    this.linkGeneratorPlugin = new GenerateLink({
+      countryCode: this.countryCode,
+      keyword: this.keyword,
+      authorId: this.authorId,
+      pageNumber: this.pageNumber,
+    });
+    this.link = this.linkGeneratorPlugin.giveLink();
   }
 
   async makeFetch() {
@@ -41,7 +53,7 @@ class MakeFetch {
   }
 
   _failedFetch(error) {
-    this.notification.failure('Oops something went wrong, please try again later');
+    this.notification.failure('Sorry, we do not find the result of your search, try please later');
   }
 
     _clearContainer() {
@@ -65,6 +77,21 @@ class MakeFetch {
       this.input.value = '';
       this.selectContainer.value = '';
     }
+  }
+
+  clearFetch() {
+    this.container = '';
+    this.eventList = [];
+    this.notification = '';
+    this.input = '';
+    this.selectContainer = '';
+    this.pageNumber = 0;
+    this.keyword = '';
+    this.countryCode = '';
+    this.authorId = '';
+    this.pageNumber = '';
+    this.linkGeneratorPlugin = '';
+    this.link = '';
   }
 }
 
