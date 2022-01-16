@@ -1,6 +1,4 @@
-import { GenerateLink } from './link-generator';
-import { MakeFetch } from './fetch';
-import Notiflix from 'notiflix';
+import { galleryRender } from './render-gallery';
 
 class ModalController {
   constructor({
@@ -113,32 +111,17 @@ function launchModalWindowPlugin(gallery, closeBtnSelector) {
           modalController.closeModal();
         }
       })
-
-
       const fromAuthorFetch = modalController.getAuthorId();
       loadMoreAuthor('opened-author-btn', fromAuthorFetch.venueId, gallery);
     }
   });
-
 };
 
 
-function loadMoreAuthor(cssClass, newKeyword, gallery) {
+function loadMoreAuthor(cssClass, authorId) {
   const btn = document.querySelector(`.${cssClass}`);
-  btn.addEventListener('click',  () => {
-      const linkPlugin = new GenerateLink({
-      authorId: newKeyword,
-      firstPartLink: `https://app.ticketmaster.com/discovery/v2/events.json?`,
-  });
-
-
-    const fetchService = new MakeFetch({
-    link: linkPlugin.giveLink(),
-    container: gallery,
-    notification: Notiflix.Notify,
-  })
-
-    fetchService.makeFetch();
+  btn.addEventListener('click', () => {
+    galleryRender({ authorId: authorId})
   })
 }
 

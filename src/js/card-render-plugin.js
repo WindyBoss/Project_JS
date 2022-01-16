@@ -95,9 +95,10 @@ class RenderCard {
     renderCard() {
       return `
         <div class="gallery__event">
-            <img class="event__image"
+            <img class="event__image lazyload"
               ${this.setGalleryImageContainer(this.imagesListMedium)}
               alt ="${this.eventName}"
+              loading="lazy"
               sizes="(min-width: 1200px) 25vw, (min-width: 480px) 33vw, 50vw"/>
           <div class="event__info">
             <p class="event__tittle">${this.eventName}</p>
@@ -272,7 +273,8 @@ class RenderCard {
             ${container[2].url}   1350w,
             ${container[3].url}   1800w
             "
-          src="${container[0].url}"`
+          src="${container[0].url}"
+          data-src="${container[0].url}"`
     } else if (container.length === 3) {
       return `
             srcset="
@@ -280,20 +282,23 @@ class RenderCard {
             ${container[1].url}   900w,
             ${container[2].url}   1350w,
             "
-          src="${container[0].url}"`
+          src="${container[0].url}"
+          data-src="${container[0].url}"`
     } else if (container.length === 2) {
       return `
             srcset="
             ${container[0].url}   450w,
             ${container[1].url}   900w,
             "
-          src="${container[0].url}"`
+          src="${container[0].url}"
+          data-src="${container[0].url}"`
     } else if (container.length < 2) {
       return `
             srcset="
             ${container[0].url}   450w,
             "
-          src="${container[0].url}"`
+          src="${container[0].url}"
+          data-src="${container[0].url}"`
     }
   }
 }

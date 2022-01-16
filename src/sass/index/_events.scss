@@ -1,3 +1,5 @@
+
+
 .modal-window {
     @include centeredFlex (flex);
     position: fixed;
@@ -23,15 +25,14 @@
       border-radius: 300px 0;
       top: 5%;
       width: 930px;
-      height: 90%;
+      height: 95%;
 
 
-      @media screen and (min-width: $tablet) and (max-width: calc($desktop - 1))  {
+      @media screen and (max-width: $desktop_1) {
         width: 595px;
-        height: 80%;
       }
 
-      @media screen and (max-width: calc($tablet - 1)) {
+      @media screen and (max-width: $tablet_1) {
         text-align: center;
         justify-content: center;
         width: 280px;
@@ -44,6 +45,7 @@
     &--container {
         max-width: 90%;
         @extend %centered-container;
+
       @media screen and (min-width: $tablet) {
         max-width: 265px;
         margin: 0;
@@ -56,8 +58,13 @@
   }
 
   &__main-info--container {
+    @extend %centered-container;
     display: flex;
     flex-direction: column;
+    @media screen and (min-width: $tablet) {
+      margin-left: 0;
+      margin-right: 0;
+    }
   }
 
 
@@ -72,14 +79,14 @@
       height: 80px;
       margin-bottom: 41px;
 
-      @media screen and (min-width: $tablet) and (max-width: calc($desktop - 1)) {
+      @media screen and (min-width: $tablet) and (max-width: $desktop_1) {
         margin-top: 28px;
         width: 70px;
         height: 70px;
         margin-bottom: 43px;
       }
 
-      @media screen and (max-width: calc($tablet - 1)) {
+      @media screen and (max-width: $tablet_1) {
         width: 102px;
         height: 102px;
         margin-top: 75px;
@@ -94,11 +101,11 @@
     height: 413px;
     margin-left: 50px;
     margin-right: 60px;
-      @media screen and (min-width: $tablet) and (max-width: calc($desktop - 1)) {
+      @media screen and (min-width: $tablet) and (max-width: $desktop_1) {
         width: 233px;
         margin-right: 30px;
       }
-      @media screen and (max-width: calc($tablet - 1)) {
+      @media screen and (max-width: $tablet_1) {
         display: none;
       }
   }
@@ -110,9 +117,8 @@
     color: getColor("primary-title-text");
     font-size: 20px;
     line-height: $line-height;
-    @media screen and (max-width: calc($tablet - 1)) {
-      margin-top: 10px;
-    }
+    margin-top: 10px;
+
     @media screen and (min-width: $desktop) {
       font-size: 24px;
     }
@@ -126,7 +132,6 @@
     @extend %centered-container;
     margin-left: 20px;
     font-weight: 400;
-    margin-bottom: 10px;
 
     @media screen and (min-width: $tablet) {
       margin-left: 0;
@@ -198,10 +203,13 @@
 
     @media screen and (min-width: $tablet) {
       position: absolute;
-      bottom: 5%;
+      bottom: 10%;
       left: 50%;
       width: 255px;
       transform: translate(-50%, 0)
+    }
+    @media screen and (min-width: $desktop) {
+      bottom: 5%;
     }
   }
 
