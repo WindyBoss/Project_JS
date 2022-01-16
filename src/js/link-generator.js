@@ -3,12 +3,11 @@ class GenerateLink {
     this.keyword = keyword;
     this.countryCode = countryCode;
     this.page = this.setPageNumber(pageNumber);
-    this.key = `9hIF6NBjrDSVNrQQJmrbBXzEzwkr0S4m`;
+    this.key = `GNumyc2AgGpRGV9vGNW7UwA7WyM3C6HP`;
     this.authorId = authorId;
     this.firstPartLink = firstPartLink;
     this.link = '';
     this._embedded = "";
-    console.log(this.page);
   }
 
   setPageNumber(pageNumber) {
@@ -22,7 +21,9 @@ class GenerateLink {
   makeLink() {
     if (!this.authorId) {
       this.link = `${this.firstPartLink}&keyword=${this.keyword}&sort=date,asc&page=${this.page}&apikey=${this.key}`;
-      if (this.countryCode && this.keyword === "") this.link = `${this.firstPartLink}&countryCode=${this.countryCode}&sort=date,asc&page=${this.page}&apikey=${this.key}`;
+      if ((this.countryCode && this.keyword === "") || (this.countryCode && !this.keyword)) {
+        this.link = `${this.firstPartLink}&countryCode=${this.countryCode}&sort=date,asc&page=${this.page}&apikey=${this.key}`;
+      }
     }
     else {
       this.link = `${this.firstPartLink}sort=date,asc&page=${this.page}&apikey=${this.key}&venueId=${this.authorId}`;

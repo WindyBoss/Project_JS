@@ -7,16 +7,14 @@ class MakeFetch {
     this.container = container;
     this.eventList = [];
     this.notification = notification;
-    // this.pageNumber = 0;
     this.input = input;
-
     this.selectContainer = selectContainer;
-
     this.pageNumber = 0;
+
   }
 
-  makeFetch() {
-    fetch(this.link)
+  async makeFetch() {
+    await fetch(this.link)
       .then(response => response.json())
       .then(data => this._successfulFetchService(data))
       .catch((error) => {
@@ -27,7 +25,7 @@ class MakeFetch {
       })
   }
   _successfulFetchService(data) {
-    this._setPageNumber(data);
+      this._setPageNumber(data);
       this._clearContainer();
       this._setEventList(data);
       this.eventList.forEach(element => {
@@ -56,11 +54,9 @@ class MakeFetch {
 
   _setPageNumber(data) {
     this.pageNumber = data.page.totalPages;
-    console.log(this.pageNumber);
   }
 
   _getPageNumber() {
-    console.log(this.pageNumber)
     return this.pageNumber;
   }
 
