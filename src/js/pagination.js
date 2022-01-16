@@ -9,10 +9,7 @@ class Pagination {
     country,
     authorId,
     keyword,
-    // formChange,
   }) {
-    // this.formChange = formChange;
-    // this.currentPage = this.setCurrentPage(currentPage);
 
     this.currentPage = currentPage;
     this.pageNumber = this.setPageNumber(pageNumber);
@@ -27,12 +24,7 @@ class Pagination {
     console.log(this.currentPage);
   }
 
-  // setCurrentPage(currentPage) {
-  //   if (this.formChange) {
-  //     return 1;
-  //   }
-  //   return currentPage;
-  // }
+
 
   setPageNumber(pageNumber) {
     if (pageNumber >= 30) {
@@ -103,7 +95,6 @@ class Pagination {
 
     handlePaginationOnClick = async e => {
     e.preventDefault();
-    // this.paginationContainer.innerHTML = '';
     this.cardContainer.innerHTML = '';
     document
       .querySelectorAll('.pagination__link')
