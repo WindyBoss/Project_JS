@@ -9,6 +9,7 @@ class Pagination {
     country,
     authorId,
     keyword,
+    totalpages,
   }) {
 
     this.currentPage = currentPage;
@@ -20,8 +21,10 @@ class Pagination {
     this.keyword = keyword;
     this.elementsToShow = 5;
     this.temporary;
+    console.log(pageNumber)
     this.setTemporary();
     console.log(this.currentPage);
+    console.log(this.paginationContainer)
   }
 
 
@@ -35,8 +38,22 @@ class Pagination {
 
   setTemporary = async () => {
     //TEMPORARY TO TEN ZASIEG I TU 5 IFOW ZROBILEM
-
-    if (this.currentPage == 1) {
+    if (this.pageNumber < this.elementsToShow) {
+      this.elementsToShow=this.pageNumber
+      if (this.currentPage == 1) {
+        this.temporary = this.range(this.currentPage, this.elementsToShow);
+      } else if (this.currentPage == 2) {
+        this.temporary = this.range(this.currentPage - 1, this.elementsToShow);
+      } else if (this.currentPage ==3) {
+        this.temporary = this.range(this.currentPage - 2, this.elementsToShow);
+      } else if (this.currentPage == 4 ) {
+        this.temporary = this.range(this.currentPage - 3, this.elementsToShow);
+      } else if (this.currentPage == this.pageNumber) {
+        this.temporary = this.range(this.currentPage - 4, this.currentPage);
+      }
+      
+    }
+    else if (this.currentPage == 1) {
       this.temporary = this.range(this.currentPage, this.elementsToShow);
     } else if (this.currentPage == 2) {
       this.temporary = this.range(this.currentPage - 1, this.elementsToShow);
