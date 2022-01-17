@@ -98,6 +98,14 @@ class ModalController {
   getAuthorId() {
     return { authorId: this.authorId, venueId: this.authorVenueId }
   }
+
+  // przycisk 'Check on Website ma zbyt mały width, zmieniam width na 200px
+  setAdditionalBtnStyle() {
+    const btn = this.modalWindow.querySelector(`.modal-window__btn`);
+    if (btn.textContent.includes('Check on Website')) {
+      btn.style.width = '200px';
+    }
+  }
 }
 
 
@@ -119,7 +127,7 @@ function launchModalWindowPlugin(gallery, closeBtnSelector) {
       });
 
       modalController.openModal();
-
+      modalController.setAdditionalBtnStyle();
       // podłączam zamykanie okna przy kliku na tło
       window.addEventListener('click', (e) => {
         if (e.target === firstModal || e.target === secondModal) {

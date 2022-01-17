@@ -110,11 +110,13 @@ class RenderCard {
     renderCard() {
       return `
         <div class="gallery__event">
+          <div class="event__image--container">
             <img class="event__image lazyload"
               ${this.setGalleryImageContainer(this.imagesListMedium)}
               alt ="${this.eventName}"
               loading="lazy"
               sizes="(min-width: 1200px) 25vw, (min-width: 480px) 33vw, 50vw"/>
+          </div>
           <div class="event__info">
             <p class="event__tittle">${this.eventName}</p>
             <p class="event__date">${this.eventDate}</p>
@@ -130,9 +132,11 @@ class RenderCard {
                   alt ="${this.eventName}"/>
                 </div>
                 <div class="modal-window__info">
+                <div class="modal-window__main--image-container">
                 <img class="modal-window__main--image"
                 ${this.setGalleryImageContainer(this.imagesListLarge)}
                   alt ="${this.eventName}"/>
+                </div>
                 <div class='modal-window__main-info--container'>
                   <div class="modal-window__info--container">
                     <h2 class="modal-window__title">Info</h2>
@@ -322,6 +326,5 @@ class RenderCard {
       }
     }
 }
-
 
 export { RenderCard };
