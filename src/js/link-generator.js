@@ -1,5 +1,9 @@
+/*
+* Plugin generowania linków
+*/
 class GenerateLink {
-  constructor({ keyword, countryCode, authorId, pageNumber}) {
+  constructor({ keyword, countryCode, authorId, pageNumber }) {
+    // ustawiam cechy obiektu
     this.keyword = this.checkData(keyword);
     this.countryCode = this.checkData(countryCode);
     this.page = this.setPageNumber(pageNumber);
@@ -14,6 +18,7 @@ class GenerateLink {
     }
   }
 
+  // sprawdzam liczbę stron
   setPageNumber(pageNumber) {
     if (!pageNumber) {
       return 1
@@ -22,6 +27,7 @@ class GenerateLink {
     }
   }
 
+  // stwarzam link w zależności od dysponowanych danych
   makeLink() {
     if (this.countryCode === '' && this.authorId === '' && this.keyword !== '') {
       this.link = `${this.firstPartLink}sort=date,asc&page=${this.page}&apikey=${this.key}&keyword=${this.keyword}&size=${this.size}`
@@ -32,16 +38,17 @@ class GenerateLink {
     } else if (this.authorId !== '') {
       this.link = `${this.firstPartLink}sort=date,asc&page=${this.page}&apikey=${this.key}&venueId=${this.authorId}&size=${this.size}`;
     }
-    console.log(this.link);
   }
 
-    checkData(data) {
-        if (data === "undefined" || !data || data === '') {
-          return "";
-        }
-        return data;
-    }
+  // sprawdzam bagi
+  checkData(data) {
+      if (data === "undefined" || !data || data === '') {
+        return "";
+      }
+      return data;
+  }
 
+  // oddaję linka
   giveLink() {
     this.makeLink();
     return this.link;

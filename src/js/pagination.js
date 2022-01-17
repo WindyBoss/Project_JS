@@ -1,5 +1,8 @@
 import { galleryRender } from './render-gallery';
 
+/*
+* Plugin paginacji
+*/
 class Pagination {
   constructor({
     currentPage = 1,
@@ -9,9 +12,9 @@ class Pagination {
     country,
     authorId,
     keyword,
-    totalpages,
   }) {
 
+    // ustawiam cechy obiektu
     this.currentPage = currentPage;
     this.pageNumber = this.setPageNumber(pageNumber);
     this.paginationContainer = paginationContainer;
@@ -21,13 +24,8 @@ class Pagination {
     this.keyword = keyword;
     this.elementsToShow = 5;
     this.temporary;
-    console.log(pageNumber)
     this.setTemporary();
-    console.log(this.currentPage);
-    console.log(this.paginationContainer)
   }
-
-
 
   setPageNumber(pageNumber) {
     if (pageNumber >= 30) {
@@ -51,7 +49,7 @@ class Pagination {
       } else if (this.currentPage == this.pageNumber) {
         this.temporary = this.range(this.currentPage - 4, this.currentPage);
       }
-      
+
     }
     else if (this.currentPage == 1) {
       this.temporary = this.range(this.currentPage, this.elementsToShow);
@@ -74,7 +72,6 @@ class Pagination {
   }
 
   renderPagination = () => {
-
     try {
   //TUTAJ SPRAWDZAM CZY JEST MNIEJSZE ROWNE 6 JESLI TAK DO DODAJE KROPKI I NA KONCU TOTALPAGES
     if (this.currentPage <= this.pageNumber - 3) {
@@ -83,9 +80,7 @@ class Pagination {
     }
 
       this.paginationContainer.innerHTML = '';
-      console.log(this.paginationContainer)
       this.temporary.map((num, index) => {
-        console.log(this.paginationTemplate(num));
       this.paginationContainer.insertAdjacentHTML('beforeend', this.paginationTemplate(num));
     });
 
@@ -97,7 +92,7 @@ class Pagination {
     }
   };
 
-
+  //TU DODALEM SPRAWDZANIE CZY JEST KROPKAMI ( ZEBY NIE DODAWALO BUTTON TYLKO ZWYKLE LI)
   paginationTemplate = (num) =>
       num != '...'
         ? `
@@ -119,7 +114,6 @@ class Pagination {
 
     e.target.closest('li')?.classList.add('pagination__link--active');
       this.currentPage = e.target.textContent;
-      console.log(this.currentPage);
 
     await galleryRender({country: this.country, page: +this.currentPage, keyword: this.keyword, authorId: this.authorId});
     e.preventDefault()

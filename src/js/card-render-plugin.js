@@ -1,14 +1,19 @@
 import closeSvg from '../images/svg/symbol-defs.svg';
 
+/*
+* Plugin rysowanie kart oraz okna modalnego
+*/
+
 class RenderCard {
   constructor(event) {
-        this.image = event.images[0].url;
+
+    // Grupuje zdjęcia po width
         this.imagesListSmall = [];
         this.imagesListMedium = [];
         this.imagesListLarge = [];
         this.setImages(event.images);
 
-
+      // ustawiam cechy obiektu
         this.eventName = this.checkData(event.name, 'No Name Info');
         this.eventInfo = this.setEventInfo(this.checkData(event.info, 'No Event Info'));
         this.eventDate = this.checkData(event.dates.start.localDate, 'No Date Info');
@@ -31,8 +36,6 @@ class RenderCard {
         this.eventTime = '';
         this.eventTimeZone = '';
 
-        this.vipPriceContainerText = ''
-        this.standardPriceContainerText = '';
         this.lowerPrice = '';
         this.higherPrice = '';
         this.currency = '';
@@ -40,10 +43,13 @@ class RenderCard {
         this.higherPriceVip = '';
         this.currencyVip = '';
 
+      // stwarzam kontenery dla dynamicznego HTML
+        this.vipPriceContainerText = ''
+        this.standardPriceContainerText = '';
         this.standardPriceContainer = '';
         this.vipPriceContainer = ``;
 
-
+      // sprawdzam czy są dwa poziomy cen (Standard + VIP)
     if (event.priceRanges) {
           if (event.priceRanges.length > 1) {
       this.setPrices(
@@ -64,14 +70,19 @@ class RenderCard {
       )
       }
     }
-      this.setPriceContainer(event.priceRanges);
+      // call funkcji napełnienia kontenera
+    this.setPriceContainer(event.priceRanges);
+
+    // rysowanie interfejsu w zmienną
       this.renderedCard = this.renderCard();
   }
 
-    returnModalWindow() {
+    // zwrot karty Ewenta
+    getEventCard() {
       return this.renderedCard;
     }
 
+    // sprawdzenie nazwy ewentu na bagi oraz ustalenie
     setEventName(eventName, replacer) {
         let checkedEventName = eventName;
         if (!eventName) {
@@ -79,6 +90,8 @@ class RenderCard {
         }
         return checkedEventName;
     }
+
+      // sprawdzenie czasu ewentu na bagi oraz ustalenie
     setTimeZone(eventTime, eventTimeZone, eventTimeZoneReplacer) {
         this.eventTime = eventTime;
         this.eventTimeZone = `(${eventTimeZone})`;
@@ -92,14 +105,18 @@ class RenderCard {
             this.eventTime = eventTime.slice(0, 5);
         }
     }
+
+    // Funkcja rysowania interfejsu (karty oraz okna modalnego)
     renderCard() {
       return `
         <div class="gallery__event">
+          <div class="event__image--container">
             <img class="event__image lazyload"
               ${this.setGalleryImageContainer(this.imagesListMedium)}
               alt ="${this.eventName}"
               loading="lazy"
               sizes="(min-width: 1200px) 25vw, (min-width: 480px) 33vw, 50vw"/>
+          </div>
           <div class="event__info">
             <p class="event__tittle">${this.eventName}</p>
             <p class="event__date">${this.eventDate}</p>
@@ -115,9 +132,11 @@ class RenderCard {
                   alt ="${this.eventName}"/>
                 </div>
                 <div class="modal-window__info">
+                <div class="modal-window__main--image-container">
                 <img class="modal-window__main--image"
                 ${this.setGalleryImageContainer(this.imagesListLarge)}
                   alt ="${this.eventName}"/>
+                </div>
                 <div class='modal-window__main-info--container'>
                   <div class="modal-window__info--container">
                     <h2 class="modal-window__title">Info</h2>
@@ -149,6 +168,8 @@ class RenderCard {
       </div>
     `
     }
+
+    // funkcja ustalenia ceny
     setPrices(
         eventPriceRanges,
         firstRangeMinPrice,
@@ -170,6 +191,7 @@ class RenderCard {
         }
     }
 
+    // funkcja napełnienia kontereru HTML cen w zależności od opcji
     setPriceContainer(eventPriceRange) {
         if (eventPriceRange) {
                 this.standardPriceContainerText = `<p class="modal-window__text">Standard: ${this.lowerPrice} - ${this.higherPrice} ${this.currency}</p>`
@@ -215,6 +237,7 @@ class RenderCard {
         };
     };
 
+    // funkcja sprawdzenie bagów
     checkData(data, phrase) {
     let checkedData = data;
     if (!data || data === 'undefined' || data === undefined  || data === '') {
@@ -223,6 +246,8 @@ class RenderCard {
     return checkedData;
     }
 
+
+    // funkcja, która polepsza wygłąd ceny
     setNewPrice(price, priceInfo) {
     let newPrice = this.checkData(price, priceInfo);
     if (String(newPrice).length > 3) {
@@ -235,73 +260,71 @@ class RenderCard {
     return newPrice;
   };
 
-  setEventInfo(text) {
-    let newText = text;
-    if (text.length > 100) {
-      newText = `${text.slice(0, 100)}...`
-    }
-
-    return newText;
-  }
-
-  setImages(images) {
-    const imagesListSmall = [];
-    const imagesListMedium = [];
-    const imagesListLarge = [];
-
-    images.forEach(image => {
-      if (image.width < 500) {
-        imagesListSmall.push(image);
-      } else if (image.width > 300 && image.width < 1000) {
-        imagesListMedium.push(image);
-      } else if (image.width > 600) {
-        imagesListLarge.push(image);
+    // funkcja skrócenia zbyt długiego tekstu
+    setEventInfo(text) {
+      let newText = text;
+      if (text.length > 100) {
+        newText = `${text.slice(0, 100)}...`
       }
-    })
 
-      this.imagesListSmall = imagesListSmall.sort((a,b) => (a.width - b.width));
-      this.imagesListMedium = imagesListMedium.sort((a,b) => (a.width - b.width));
-      this.imagesListLarge = imagesListLarge.sort((a, b) => (a.width - b.width));
-  }
-
-  setGalleryImageContainer(container) {
-    if (container.length > 3) {
-      return `
-            srcset="
-            ${container[0].url}   450w,
-            ${container[1].url}   900w,
-            ${container[2].url}   1350w,
-            ${container[3].url}   1800w
-            "
-          src="${container[0].url}"
-          data-src="${container[0].url}"`
-    } else if (container.length === 3) {
-      return `
-            srcset="
-            ${container[0].url}   450w,
-            ${container[1].url}   900w,
-            ${container[2].url}   1350w,
-            "
-          src="${container[0].url}"
-          data-src="${container[0].url}"`
-    } else if (container.length === 2) {
-      return `
-            srcset="
-            ${container[0].url}   450w,
-            ${container[1].url}   900w,
-            "
-          src="${container[0].url}"
-          data-src="${container[0].url}"`
-    } else if (container.length < 2) {
-      return `
-            srcset="
-            ${container[0].url}   450w,
-            "
-          src="${container[0].url}"
-          data-src="${container[0].url}"`
+      return newText;
     }
-  }
-}
 
+    // funkcja grupowania zdjęc po width
+    setImages(images) {
+      const imagesListSmall = [];
+      const imagesListMedium = [];
+      const imagesListLarge = [];
+
+      images.forEach(image => {
+        if (image.width < 500) {
+          imagesListSmall.push(image);
+        } else if (image.width > 300 && image.width < 1000) {
+          imagesListMedium.push(image);
+        } else if (image.width > 600) {
+          imagesListLarge.push(image);
+        }
+      })
+
+        this.imagesListSmall = imagesListSmall.sort((a,b) => (a.width - b.width));
+        this.imagesListMedium = imagesListMedium.sort((a,b) => (a.width - b.width));
+        this.imagesListLarge = imagesListLarge.sort((a, b) => (a.width - b.width));
+    }
+
+    // funkcja stworzenia kontenera zdjęc
+    setGalleryImageContainer(container) {
+      if (container.length > 3) {
+        return `
+              srcset="
+              ${container[0].url}   450w,
+              ${container[1].url}   900w,
+              ${container[2].url}   1350w,
+              ${container[3].url}   1800w
+              "
+            data-src="${container[0].url}"`
+      } else if (container.length === 3) {
+        return `
+              srcset="
+              ${container[0].url}   450w,
+              ${container[1].url}   900w,
+              ${container[2].url}   1350w,
+              "
+            data-src="${container[0].url}"`
+      } else if (container.length === 2) {
+        return `
+              srcset="
+              ${container[0].url}   450w,
+              ${container[1].url}   900w,
+              "
+            data-src="${container[0].url}"`
+      } else if (container.length < 2) {
+        return `
+              srcset="
+              ${container[0].url}   450w,
+              "
+            data-src="${container[0].url}"`
+      }
+    }
+}
 
 export { RenderCard };

@@ -1,17 +1,24 @@
-const gallery = document.querySelector('.gallery');
 import { MakeFetch } from './fetch';
 import { Pagination } from './pagination';
 import Notiflix from 'notiflix';
+import { refs } from './refs';
 
+
+/*
+* funkcja od której wszystko się zaczyna :)
+* podłączam plugin paginacji
+* podłączam plugin Fetch
+*/
 
 async function galleryRender({ country, page, keyword, authorId }) {
 
+    // żeby uniknąc nakładania eventListenerów przy paginacji zamieniam kontener paginacji na klona
     const paginationList = document.querySelector('.pagination');
     const cloneContainer = paginationList.cloneNode(true);
     paginationList.parentNode.replaceChild(cloneContainer, paginationList);
 
     const fetchService = new MakeFetch({
-    container: gallery,
+    container: refs.gallery,
     notification: Notiflix.Notify,
     pageNumber: page,
     countryCode: country,
@@ -25,11 +32,13 @@ async function galleryRender({ country, page, keyword, authorId }) {
     currentPage: page,
     pageNumber: pageNumber,
     paginationContainer: cloneContainer,
-    cardContainer: gallery,
+    cardContainer: refs.gallery,
     country: country,
     keyword: keyword,
     authorId: authorId,
   });
+
+   //DODAJE TUTAL TOTALPAGES ZEBY SPRAWDZIC CZCY POTRZEBNE SA TRZY KROPKI
   pagination.renderPagination();
   cloneContainer.addEventListener('click', pagination.handlePaginationOnClick);
 }
