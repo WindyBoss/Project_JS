@@ -49,8 +49,11 @@ class MakeFetch {
 
   // funkcja, jeżeli fetch sukcess
   _successfulFetchService(data) {
+      // funkcja ustawiania liczby stron przy fetch
       this._setPageNumber(data);
+      // funkcja czyszczenia kontenera kart ewentów
       this._clearContainer();
+      // funkcja ustawienia listy ewentów
       this._setEventList(data);
       this.eventList.forEach(element => {
         // podłączam plugin rysowania kart i okna modalnego
@@ -62,6 +65,7 @@ class MakeFetch {
         );
       });
 
+      // łączę plugin okna modalnego
       launchModalWindowPlugin(this.container, 'modal-window__close--btn');
   }
 
