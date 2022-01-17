@@ -38,7 +38,7 @@ class Pagination {
 
   setTemporary = async () => {
     //TEMPORARY TO TEN ZASIEG I TU 5 IFOW ZROBILEM
-    if (this.pageNumber < this.elementsToShow) {
+    if (this.pageNumber <= this.elementsToShow) {
       this.elementsToShow=this.pageNumber
       if (this.currentPage == 1) {
         this.temporary = this.range(this.currentPage, this.elementsToShow);
