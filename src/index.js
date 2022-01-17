@@ -2,6 +2,7 @@
 import './sass/main.scss';
 import { galleryRender } from './js/render-gallery';
 import { request } from './js/get-current-location';
+import { addLibraryScript, addSrcToLazyImages } from './js/lazyload';
 let page = 1;
 let country = 'us';
 
@@ -18,3 +19,11 @@ request.onreadystatechange = function () {
 setTimeout(() => {
   galleryRender({ country: country, page: page });
 }, 2000);
+
+
+
+if ('loading' in HTMLImageElement.prototype) {
+    addSrcToLazyImages();
+} else {
+    addLibraryScript();
+};

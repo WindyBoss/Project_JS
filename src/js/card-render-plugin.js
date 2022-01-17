@@ -297,7 +297,6 @@ class RenderCard {
               ${container[2].url}   1350w,
               ${container[3].url}   1800w
               "
-            src="${container[0].url}"
             data-src="${container[0].url}"`
       } else if (container.length === 3) {
         return `
@@ -306,7 +305,6 @@ class RenderCard {
               ${container[1].url}   900w,
               ${container[2].url}   1350w,
               "
-            src="${container[0].url}"
             data-src="${container[0].url}"`
       } else if (container.length === 2) {
         return `
@@ -314,14 +312,12 @@ class RenderCard {
               ${container[0].url}   450w,
               ${container[1].url}   900w,
               "
-            src="${container[0].url}"
             data-src="${container[0].url}"`
       } else if (container.length < 2) {
         return `
               srcset="
               ${container[0].url}   450w,
               "
-            src="${container[0].url}"
             data-src="${container[0].url}"`
       }
     }
