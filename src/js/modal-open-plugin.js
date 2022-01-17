@@ -1,5 +1,8 @@
 import { galleryRender } from './render-gallery';
 
+/*
+* Plugin logiki okna modalnego
+*/
 class ModalController {
   constructor({
     cssClass,
@@ -7,6 +10,7 @@ class ModalController {
     secondClickPlace,
     closeBtnSelector,
   }) {
+    // ustawiam cechy obiektu
     this.firstClickPlace = this.checkClassData(firstClickPlace);
     this.secondClickPlace = this.checkClassData(secondClickPlace);
     this.closeBtnSelector = closeBtnSelector;
@@ -16,11 +20,11 @@ class ModalController {
     this.setEventListener();
     this.authorBtnSelector = 'modal-window__more--btn';
     this.loadAuthorBtn = this.setLoadAuthorBtn();
-    this.isOpen = false;
     this.authorId = this.setAuthorId();
     this.authorVenueId = this.setAuthorVenueId();
   };
 
+  // funkcja która wyłapuje na co był klik (zdjęcie karty czy tekst karty) i ustawia jedyne okno modalne
   setModalWindow() {
     if (!this.firstClickPlace) {
       return this.secondClickPlace;
@@ -29,6 +33,7 @@ class ModalController {
     };
   }
 
+  // sprawdzam bagi
   checkClassData(classData) {
     if(!classData) {
       return;
@@ -36,20 +41,22 @@ class ModalController {
     return classData;
   }
 
+  // ustawiam przycisk zamykania okna modalnego
   setCloseBtn() {
     const closeBtn = this.modalWindow.querySelector(`.${this.closeBtnSelector}`);
     return closeBtn;
   }
 
+  // otwieram okno modalne
   openModal() {
     if (!this.modalWindow) {
       return;
     };
-    this.isOpen = true;
     this.modalWindow.classList.remove(this.cssClass);
     this.loadAuthorBtn.classList.add('opened-author-btn');
   }
 
+  // dodaję addEventListener dla zamknięcia okna modalnego
   setEventListener() {
     if (!this.closeBtn) {
       return;
@@ -62,55 +69,65 @@ class ModalController {
     });
   }
 
-  getModalStatus() {
-    return this.isOpen;
-  }
-
+  // zamykam okno
   closeModal() {
       if (!this.modalWindow) {
         return;
     };
-    this.isOpen = false;
     this.modalWindow.classList.add(this.cssClass);
     this.loadAuthorBtn.classList.remove('opened-author-btn');
   }
 
+  // ustalam przycisk "Load more from this author"
   setLoadAuthorBtn() {
     const btn = this.modalWindow.querySelector(`.${this.authorBtnSelector}`);
     return btn;
   }
 
+  // ustawiam authorId
   setAuthorId() {
     return this.modalWindow.id;
   }
 
+  // ustawiam venueAuthorId
   setAuthorVenueId() {
     return this.modalWindow.children[0].id
   }
 
-
+  // oddaję authorId + venueAuthorId (nie wiem, które jest potrzebne, więc oddaje 2)
   getAuthorId() {
     return { authorId: this.authorId, venueId: this.authorVenueId }
   }
 }
 
+
+// funkcja kontroli plugina okna modalnego
+
 function launchModalWindowPlugin(gallery, closeBtnSelector) {
+  // podłączam eventListener do kontenera galerii
     gallery.addEventListener('click', (e) => {
     if(e.target.classList.value.includes('gallery__event')) {
       const firstModal = e.target.children[2];
       const secondModal = e.target.offsetParent.children[2];
+
+      // podłączam plugin
       const modalController = new ModalController({
           cssClass: 'modal-closed',
           firstClickPlace: firstModal,
           secondClickPlace: secondModal,
           closeBtnSelector: closeBtnSelector
       });
+
       modalController.openModal();
+
+      // podłączam zamykanie okna przy kliku na tło
       window.addEventListener('click', (e) => {
         if (e.target === firstModal || e.target === secondModal) {
           modalController.closeModal();
         }
       })
+
+      // połączam przycisk "Load more from this author"
       const fromAuthorFetch = modalController.getAuthorId();
       loadMoreAuthor('opened-author-btn', fromAuthorFetch.venueId, gallery);
     }
@@ -119,6 +136,7 @@ function launchModalWindowPlugin(gallery, closeBtnSelector) {
 
 
 function loadMoreAuthor(cssClass, authorId) {
+  // połączam przycisk "Load more from this author"
   const btn = document.querySelector(`.${cssClass}`);
   btn.addEventListener('click', () => {
     galleryRender({ authorId: authorId})

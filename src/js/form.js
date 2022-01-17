@@ -1,20 +1,18 @@
 import { galleryRender } from './render-gallery';
-
-const form = document.querySelector('.search-bar__form');
-const input = form.querySelector('.search-bar__input');
-const select = document.querySelector('.country');
+import { refs } from './refs';
 let keyword = '';
 let countryCode = '';
 
+// funkcja call fetch z pomocą formy
 async function searchEvents(event) {
   event.preventDefault();
-  keyword = input.value;
-  countryCode = select.value;
+  keyword = refs.input.value;
+  countryCode = refs.select.value;
 
   galleryRender({ country: countryCode, keyword: keyword })
 }
 
 
 
-form.addEventListener('submit', searchEvents);
-select.addEventListener('change', searchEvents);
+refs.form.addEventListener('submit', searchEvents);
+refs.select.addEventListener('change', searchEvents);
