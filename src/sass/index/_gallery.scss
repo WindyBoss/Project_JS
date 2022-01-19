@@ -4,10 +4,12 @@
   padding-top: 30px;
   padding-left: 25px;
   padding-right: 25px;
+  margin-top: -51px;
   overflow: hidden;
 background-image:url(../images/gallery-bg.png);
 background-color: #0E0E0E;
 background-size:  contain;
+
 
   @media screen and (min-width: $tablet) {
     max-width: $tablet;
@@ -15,10 +17,10 @@ background-size:  contain;
     padding-left: 0;
     padding-right: 0;
   }
+
   @media screen and(min-width:$desktop){
     max-width: $desktop;
     min-width: $desktop;
-    
   }
 
 }
