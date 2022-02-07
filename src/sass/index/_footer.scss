@@ -1,14 +1,14 @@
 .footer .container {
-  background-color: black;
+  background-color: getColor('footer-bg-color');
   padding-bottom: 27px;
 }
 .footer__text {
-  color: #939393;
+  color: getColor('secondary-text');
   text-align: center;
 
   justify-content: center;
   padding-left: 25px;
 }
 .footer__heart {
-  color: red;
+  color: getColor('footer-heart-color');
 }

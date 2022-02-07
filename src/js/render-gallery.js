@@ -1,7 +1,9 @@
-import { MakeFetch } from './fetch';
-import { Pagination } from './pagination';
-import Notiflix from 'notiflix';
-import { refs } from './refs';
+import { MakeFetch } from './plugins/fetch';
+import { Pagination } from './plugins/pagination';
+import { refs } from './components/refs';
+import { EventListener } from './components/addEventListener';
+
+import Svg from '../images/svg/symbol-defs.svg';
 
 
 /*
@@ -10,20 +12,27 @@ import { refs } from './refs';
 * podłączam plugin Fetch
 */
 
-async function galleryRender({ country, page, keyword, authorId }) {
 
+
+async function galleryRender({ country, page, keyword, authorId}) {
     // żeby uniknąc nakładania eventListenerów przy paginacji zamieniam kontener paginacji na klona
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+
     const paginationList = document.querySelector('.pagination');
     const cloneContainer = paginationList.cloneNode(true);
     paginationList.parentNode.replaceChild(cloneContainer, paginationList);
 
     const fetchService = new MakeFetch({
     container: refs.gallery,
-    notification: Notiflix.Notify,
     pageNumber: page,
     countryCode: country,
     keyword: keyword,
     authorId: authorId,
+    svg: Svg,
+
   })
 
   await fetchService.makeFetch();
@@ -40,7 +49,13 @@ async function galleryRender({ country, page, keyword, authorId }) {
 
    //DODAJE TUTAL TOTALPAGES ZEBY SPRAWDZIC CZCY POTRZEBNE SA TRZY KROPKI
   pagination.renderPagination();
-  cloneContainer.addEventListener('click', pagination.handlePaginationOnClick);
+
+  const cloneContainerListener = new EventListener({
+    domElement: cloneContainer,
+    listenType: 'click',
+    callbackFunction: pagination.handlePaginationOnClick
+  })
+  cloneContainerListener.setEventListener();
 }
 
 export { galleryRender };

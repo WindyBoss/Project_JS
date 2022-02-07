@@ -56,3 +56,6 @@ npm run dev
 - Изображения добавляйте в папку `src/images`, заранее оптимизировав их. Сборщик просто копирует
   используемые изображения чтобы не нагружать систему оптимизацией картинок, так как на слабых
   компьютерах это может занять много времени.
+
+"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --disable-web-security --disable-gpu
+window.navigator.userLanguage || window.navigator.language

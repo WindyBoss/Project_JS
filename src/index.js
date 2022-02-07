@@ -1,29 +1,59 @@
 'use strict';
 import './sass/main.scss';
+const axios = require('axios');
+
+import { Loader } from './js/components/loading';
 import { galleryRender } from './js/render-gallery';
-import { request } from './js/get-current-location';
-import { addLibraryScript, addSrcToLazyImages } from './js/lazyload';
+import { addLibraryScript, addSrcToLazyImages } from './js/components/lazyload';
+import { refs } from './js/components/refs';
 let page = 1;
-let country = 'us';
+
+const loader = new Loader(refs.loading);
+loader.displayLoading();
+
+// funkcja wyszukania kraju po IP
+class Location {
+  constructor({ replaceCountryCode }) {
+    this.key = 'ee57a1628fb92f336e24699a2ff440322ef643c7edfbb26a7a465a2a';
+    this.url = `https://api.ipdata.co/?api-key=${this.key}`;
+    this.countryCode = '';
+    this.replaceCountryCode = replaceCountryCode;
+  }
+
+  async find() {
+    return await axios.get(this.url)
+      .then(result => {
+        this.onFindSuccess(result.data.country_code.toLowerCase());
+      })
+      .catch((error) => {
+        this.onFindFailed();
+      })
+      .finally(() => {
+        pageFirstLoad(this.countryCode);
+    })
+  }
+
+  onFindSuccess(data) {
+    this.countryCode = data;
+  }
+
+  onFindFailed() {
+    this.countryCode = this.replaceCountryCode;
+  }
+}
 
 
-// podłączam funkcję wyszukiwania kraju po IP
-request.onreadystatechange = function () {
-  if (this.readyState === 4) {
-    const locationData = JSON.parse(this.responseText);
-    country = locationData.country_code.toLowerCase();
-  };
-};
+function pageFirstLoad(country) {
+    galleryRender({ country: country, page: page, loadContainer: refs.loading });
+    if ('loading' in HTMLImageElement.prototype) {
+        addSrcToLazyImages();
+    } else {
+        addLibraryScript();
+    };
+}
 
+const location = new Location({
+  replaceCountryCode: String(window.navigator.language).slice(3, 5).toLowerCase(),
+});
+  location.find();
 
-setTimeout(() => {
-  galleryRender({ country: country, page: page });
-}, 2000);
-
-
-
-if ('loading' in HTMLImageElement.prototype) {
-    addSrcToLazyImages();
-} else {
-    addLibraryScript();
-};

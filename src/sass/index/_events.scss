@@ -23,13 +23,15 @@
       position: fixed;
       overflow: hidden;
       border-radius: 300px 0;
-      top: 5%;
+      top: 50%;
       width: 930px;
       height: 95%;
+      transform: translate(0px, -50%);
 
 
-      @media screen and (max-width: $desktop_1) {
+      @media screen and (min-width: $tablet) and (max-width: $desktop_1) {
         width: 595px;
+        height: 831px;
       }
 
       @media screen and (max-width: $tablet_1) {
@@ -43,15 +45,15 @@
   &__info {
     display: flex;
     &--container {
-        max-width: 90%;
+        width: 90%;
         @extend %centered-container;
 
       @media screen and (min-width: $tablet) {
-        max-width: 265px;
+        width: 265px;
         margin: 0;
       }
-      @media screen and (min-width: $tablet) {
-        max-width: 450px;
+      @media screen and (min-width: $desktop) {
+        width: 450px;
         margin: 0;
       }
     }
@@ -98,53 +100,56 @@
     }
   }
 
-  // &__main--image {
-  //   display: block;
-  //   width: 360px;
-  //   height: 413px;
-  //   margin-left: 50px;
-  //   margin-right: 60px;
-  //     @media screen and (min-width: $tablet) and (max-width: $desktop_1) {
-  //       width: 233px;
-  //       margin-right: 30px;
-  //     }
-  //     @media screen and (max-width: $tablet_1) {
-  //       display: none;
-  //     }
-  // }
-
-    &__main--image {
-      display: block;
-      height: 413px;
-      width: auto;
-
-      &-container {
-        display: flex;
-        justify-content: center;
-        overflow: hidden;
-        width: 360px;
-        margin-left: 50px;
-        margin-right: 60px;
-
-        @media screen and (min-width: $tablet) and (max-width: $desktop_1) {
-          width: 233px;
-          margin-right: 30px;
-        };
-        @media screen and (max-width: $tablet_1) {
-          display: none;
-        };
+  &__main--image {
+    display: block;
+    width: 360px;
+    height: 413px;
+    margin-left: 50px;
+    margin-right: 60px;
+      @media screen and (min-width: $tablet) and (max-width: $desktop_1) {
+        width: 233px;
+        margin-right: 30px;
       }
-    }
+      @media screen and (max-width: $tablet_1) {
+        display: none;
+      }
+  }
+
+    // &__main--image {
+    //   display: block;
+    //   height: 413px;
+    //   width: auto;
+
+    //   &-container {
+    //     display: flex;
+    //     justify-content: center;
+    //     overflow: hidden;
+    //     width: 360px;
+    //     margin-left: 50px;
+    //     margin-right: 60px;
+
+    //     @media screen and (min-width: $tablet) and (max-width: $desktop_1) {
+    //       width: 233px;
+    //       margin-right: 30px;
+    //     };
+    //     @media screen and (max-width: $tablet_1) {
+    //       display: none;
+    //     };
+    //   }
+    // }
 
   &__title {
     @extend %centered-container;
     margin-bottom: 5px;
     font-weight: 600;
-    color: getColor("primary-title-text");
     font-size: 20px;
+    color: getColor("primary-title-text");
     line-height: $line-height;
     margin-top: 10px;
 
+    @media screen and (max-height: $small_mobile) {
+      font-size: 14px;
+    }
     @media screen and (min-width: $desktop) {
       font-size: 24px;
     }
@@ -153,7 +158,10 @@
   &__text {
     position: relative;
     color: getColor("modal-text");
-    font-size: $main-modal-font-size;
+    font-size: $main-modal-font-size-high-screen;
+    @media screen and (max-height: $small_mobile) {
+      font-size: $main-modal-font-size-low-screen;
+    }
     line-height: $line-height;
     @extend %centered-container;
     margin-left: 20px;
@@ -167,30 +175,25 @@
     }
   }
 
-  &__price-container .modal-window__text {
-    padding-bottom: 10px;
-    @media screen and (min-width: $tablet) {
-      margin-left: 30px;
-    }
-    &::before {
-      display: inline-block;
-      position: absolute;
-      left: -20%;
-      content: '';
-      width: 20px;
-      height: 20px;
-    background-image: url(../images/svg/barcode.png);
-    @media screen and (min-width: $tablet) {
-      left: -30px;
+  &__price-container{
+    & .modal-window__text {
+      display: flex;
+      padding-bottom: 10px;
+      &::before {
+        display: inline-block;
+        margin-right: 13px;
+        content: '';
+        width: 20px;
+        height: 20px;
+        background-image: url(../images/svg/barcode.png);
     }
   }
-  }
+}
   &__btn {
     @extend %modal-button;
-
     width: 145px;
     height: 40px;
-    margin-bottom: 25px;
+
 
     @include btnColorStyle(
       getColor("modal-btn-bg-color"),
@@ -202,9 +205,16 @@
       );
 
     &-text {
-      font-size: $main-modal-font-size;
+      font-size: $main-modal-font-size-high-screen;
+      @media screen and (max-height: $small_mobile) {
+        font-size: $main-modal-font-size-low-screen;
+      }
       line-height: $line-height;
       color: getColor("primary-text");
+    }
+
+    &.check {
+      width: 200px;
     }
   }
 
@@ -213,6 +223,7 @@
     @extend %centered-container;
     width: 230px;
     height: 40px;
+    margin-top: 30px;
 
     @include btnColorStyle(
       transparent,
@@ -223,7 +234,7 @@
       getColor("primary-title-text"),
     );
 
-    font-size: $main-modal-font-size;
+    font-size: $main-modal-font-size-high-screen;
     line-height: $line-height;
     padding: 0;
 
@@ -232,11 +243,21 @@
       bottom: 10%;
       left: 50%;
       width: 255px;
-      transform: translate(-50%, 0)
+      transform: translate(-50%, 0);
+      margin-top: 50px;
     }
-    @media screen and (min-width: $desktop) {
-      bottom: 5%;
+
+    @media screen and (max-height: $small_mobile) and (max-width: $mobile) {
+      font-size: $main-modal-font-size-low-screen;
+      width: 160px;
     }
+
+    &.check-website {
+      @media screen and (min-width: $tablet) {
+        position: relative;
+        margin-top: 100px;
+      }
+  }
   }
 
   &__close--btn {
@@ -258,6 +279,27 @@
      }
   }
 }
+    .failed {
+      position: fixed;
+      display: flex;
 
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, 0);
+
+      text-align: center;
+      align-items: center;
+
+      font-size: 30px;
+      color: getColor("primary-title-text");
+      background-color: getColor("main-bg-color");
+      padding: 25px;
+      border-radius: 50px;
+    &-svg{
+      fill: getColor('primary-text');
+      width: 80px;
+      height: 80px;
+    }
+  }
 
 

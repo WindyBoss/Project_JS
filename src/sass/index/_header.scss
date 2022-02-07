@@ -1,6 +1,6 @@
 .header {
-  background: (linear, left top, right top, from(#0b0b0b73), color-stop(50%, #0b0b0b80)),url(../images/bg-mobile.jpg);
-  background: linear-gradient( 90deg, #0b0b0b73 0%, #0b0b0b80 50%),url(../images/bg-mobile.jpg);
+  background: (linear, left top, right top, from(getColor('first-header-bg-color')), color-stop(50%, getColor('second-header-bg-color'))),url(../images/bg-mobile.jpg);
+  background: linear-gradient( 90deg, getColor('first-header-bg-color') 0%, getColor('second-header-bg-color') 50%),url(../images/bg-mobile.jpg);
   background-repeat: no-repeat;
   height: 364px;
   position: relative;
@@ -24,7 +24,7 @@
 
 .header__title-text {
   width: 212px;
-  color: #DC56C5;
+  color: get('primary-title-text');
   font-weight: 900;
   font-size: 18px;
   line-height: 1.222;
@@ -49,7 +49,7 @@
   height: 40px;
   margin-bottom: 25px;
   //outline: none;
-  color: getColor("secondary-text");  
+  color: getColor("secondary-text");
   font-size: 16px;
   line-height: 1.21;
   font-weight: 400;
@@ -62,11 +62,11 @@
   width: 270px;
   height: 40px;
   padding: 10px 30px;
-  background: rgba(255, 255, 255, 0.2);
+  background: getColor('main-bg-color');
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(50px);
   border-radius: 20px;
-  color: getColor("secondary-text");  
+  color: getColor("secondary-text");
   font-size: 16px;
   line-height: 1.21;
   font-weight: 400;
@@ -78,12 +78,12 @@
   outline: none;
   width: 270px;
   height: 40px;
-  background: rgba(255, 255, 255, 0.2);
+  background: getColor('main-bg-color');
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(50px);
   border-radius: 20px;
   padding: 10px 30px;
-  color: getColor("secondary-text");  
+  color: getColor("secondary-text");
   font-size: 16px;
   line-height: 1.21;
   font-weight: 400;
@@ -91,6 +91,20 @@
   margin-bottom: 25px;
   appearance: none;
   z-index: 0;
+
+  & option {
+    background-color: getColor('gallery-bg-color');
+    color: get('primary-title-text');
+    border: 1px solid getColor('header-border-color');
+
+    &:hover,
+    &:focus {
+      background-color: getColor('header-option-bg-color');
+      color: get('primary-title-text');
+      border: 1px solid getColor('footer-bg-color');
+
+    }
+  }
 }
 
 .search-bar__icon {
@@ -163,8 +177,13 @@ animation: bounce-in 1s ease-in-out 0s 1 normal;
 // }
 
 @keyframes moverotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+
+  0% { transform: rotate(0deg);
+  };
+
+  100% { transform: rotate(360deg);
+  };
+
   transform-origin: center;
 }
 
@@ -173,8 +192,10 @@ animation: bounce-in 1s ease-in-out 0s 1 normal;
 
 @media screen and (min-width: 768px) and (max-width: 1279px) {
   .header {
-    background: (linear, left top, right top, from(#0b0b0b73), color-stop(50%, #0b0b0b80)),url(../images/bg-tablet.jpg);
-    background: linear-gradient( 90deg, #0b0b0b73 0%, #0b0b0b80 50%),url(../images/bg-tablet.jpg);
+    background: (linear, left top, right top, from(getColor('first-header-bg-color')), color-stop(50%, getColor('second-header-bg-color'))),
+    url(../images/bg-tablet.jpg);
+    background: linear-gradient(90deg, getColor('first-header-bg-color') 0%, getColor('second-header-bg-color') 50%),
+    url(../images/bg-tablet.jpg);
     //background-repeat: no-repeat;
     height: 364px;
     //position: relative;
@@ -202,7 +223,7 @@ animation: bounce-in 1s ease-in-out 0s 1 normal;
 
   .header__title-text {
     width: 353px;
-    color: #DC56C5;
+    color: getColor('primary-title-text');
     font-weight: 900;
     font-size: 30px;
     line-height: 1.219;
@@ -230,7 +251,7 @@ animation: bounce-in 1s ease-in-out 0s 1 normal;
     // height: 40px;
     // margin-bottom: 25px;
     // //outline: none;
-    // color: getColor("secondary-text");  
+    // color: getColor("secondary-text");
     // font-size: 16px;
     // line-height: 1.21;
     // font-weight: 400;
@@ -249,7 +270,7 @@ animation: bounce-in 1s ease-in-out 0s 1 normal;
     // -webkit-backdrop-filter: blur(20px);
     // backdrop-filter: blur(50px);
     // border-radius: 20px;
-    // color: getColor("secondary-text");  
+    // color: getColor("secondary-text");
     // font-size: 16px;
     // line-height: 1.21;
     // font-weight: 400;
@@ -266,7 +287,7 @@ animation: bounce-in 1s ease-in-out 0s 1 normal;
     // backdrop-filter: blur(50px);
     // border-radius: 20px;
     // padding: 10px 30px;
-    // color: getColor("secondary-text");  
+    // color: getColor("secondary-text");
     // font-size: 16px;
     // line-height: 1.21;
     // font-weight: 400;
@@ -299,8 +320,8 @@ animation: bounce-in 1s ease-in-out 0s 1 normal;
 
 @media screen and (min-width: 1280px){
   .header {
-    background: (linear, left top, right top, from(#0b0b0b73), color-stop(50%, #0b0b0b80)),url(../images/bg-desktop.jpg);
-    background: linear-gradient( 90deg, #0b0b0b73 0%, #0b0b0b80 50%),url(../images/bg-desktop.jpg);
+    background: (linear, left top, right top, from(getColor('first-header-bg-color')), color-stop(50%, getColor('second-header-bg-color'))),url(../images/bg-desktop.jpg);
+    background: linear-gradient( 90deg, getColor('first-header-bg-color') 0%, getColor('second-header-bg-color') 50%),url(../images/bg-desktop.jpg);
     //background-repeat: no-repeat;
     height: 446px;
     //position: relative;
@@ -328,7 +349,7 @@ animation: bounce-in 1s ease-in-out 0s 1 normal;
 
   .header__title-text {
     width: 600px;
-    color: #DC56C5;
+    color: getColor('primary-title-text');
     font-weight: 900;
     font-size: 50px;
     line-height: 1.22;
@@ -356,7 +377,7 @@ animation: bounce-in 1s ease-in-out 0s 1 normal;
     // height: 40px;
     // margin-bottom: 25px;
     // //outline: none;
-    // color: getColor("secondary-text");  
+    // color: getColor("secondary-text");
     // font-size: 16px;
     // line-height: 1.21;
     // font-weight: 400;
@@ -375,7 +396,7 @@ animation: bounce-in 1s ease-in-out 0s 1 normal;
     // -webkit-backdrop-filter: blur(20px);
     // backdrop-filter: blur(50px);
     // border-radius: 20px;
-    // color: getColor("secondary-text");  
+    // color: getColor("secondary-text");
     // font-size: 16px;
     // line-height: 1.21;
     // font-weight: 400;
@@ -392,7 +413,7 @@ animation: bounce-in 1s ease-in-out 0s 1 normal;
     // backdrop-filter: blur(50px);
     // border-radius: 20px;
     // padding: 10px 30px;
-    // color: getColor("secondary-text");  
+    // color: getColor("secondary-text");
     // font-size: 16px;
     // line-height: 1.21;
     // font-weight: 400;

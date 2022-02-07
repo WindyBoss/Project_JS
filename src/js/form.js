@@ -1,19 +1,8 @@
 import { galleryRender } from './render-gallery';
-<<<<<<< Updated upstream
-import { refs } from './refs';
-=======
-
-const form = document.querySelector('.search-bar__form');
-const input = form.querySelector('.search-bar__input');
-const select = document.querySelector('.country');
-
-console.log("select.value");
-console.log(select.value);
-console.log("select.value");
-
->>>>>>> Stashed changes
+import { refs } from './components/refs';
 let keyword = '';
 let countryCode = '';
+import { EventListener } from './components/addEventListener';
 
 // funkcja call fetch z pomocą formy
 async function searchEvents(event) {
@@ -21,15 +10,25 @@ async function searchEvents(event) {
   keyword = refs.input.value;
   countryCode = refs.select.value;
 
-  galleryRender({ country: countryCode, keyword: keyword })
+  galleryRender({
+    country: countryCode,
+    keyword: keyword,
+    loadContainer: refs.loading
+  });
 }
 
-<<<<<<< Updated upstream
+const formListener = new EventListener({
+    domElement: refs.form,
+    listenType: 'submit',
+    callbackFunction: searchEvents,
+})
 
+formListener.setEventListener()
 
-refs.form.addEventListener('submit', searchEvents);
-refs.select.addEventListener('change', searchEvents);
-=======
-form.addEventListener('submit', searchEvents);
-select.addEventListener('change', searchEvents);
->>>>>>> Stashed changes
+const selectListener = new EventListener({
+    domElement: refs.select,
+    listenType: 'change',
+    callbackFunction: searchEvents,
+})
+
+selectListener.setEventListener()

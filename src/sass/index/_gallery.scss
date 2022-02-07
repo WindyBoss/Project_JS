@@ -7,7 +7,7 @@
   margin-top: -51px;
   overflow: hidden;
 background-image:url(../images/gallery-bg.png);
-background-color: #0E0E0E;
+background-color: getColor('gallery-bg-color');
 background-size:  contain;
 
 
@@ -31,25 +31,30 @@ background-size:  contain;
   min-width: 280px;
   margin-left: -14px;
   margin-top: -60px;
- margin-bottom: 60px;
-min-height: 2635px;
-position: relative;
-z-index: 0;
+  margin-bottom: 60px;
+  min-height: 2635px;
+  position: relative;
+  z-index: 0;
+  visibility: hidden;
 
   @media screen and (min-width: $tablet) {
     min-width: $tablet;
     min-height: 2454px;
     margin-left: -14px;
-    display: flex;
     flex-wrap: wrap;
     margin-bottom: 60px;
-    
+
   }
    @media screen and(min-width:$desktop) {
-  min-width: $desktop; 
+  min-width: $desktop;
   min-height: 1760px;
    margin-bottom: 80px;
   }
+
+  &.shown {
+    visibility: visible;
+  }
+
 }
 
 .gallery__event {
@@ -82,7 +87,7 @@ z-index: 0;
 .gallery__event::before {
   content: '';
   box-sizing: border-box;
-  border: 1px solid #dc56c54d;
+  border: 1px solid getColor('gallery-border-color');
   height: 101px;
   width: 109px;
   border-radius: 50px 0px;
@@ -129,7 +134,7 @@ z-index: 0;
   line-height: 1.214;
   letter-spacing: 0em;
   text-align: center;
-  color: #dc56c5;
+  color: getColor('primary-title-text');
   margin-top: 5px;
   @media screen and (min-width: $tablet) {
     font-size: 16px;
@@ -147,7 +152,7 @@ z-index: 0;
   line-height: 17px;
   letter-spacing: 0em;
   text-align: center;
-  color: #ffffff;
+  color: getColor('primary-text');
   margin-top: 5px;
 
   @media screen and (min-width: $tablet) {
@@ -158,7 +163,7 @@ z-index: 0;
 
 .event__place {
   max-width: 138px;
-  color: white;
+  color: getColor('primary-text');
   text-align: center;
   font-family: Montserrat;
   font-size: 12px;
@@ -208,7 +213,7 @@ z-index: 0;
   box-sizing: border-box;
   border: none;
   background-color: inherit;
-  color: white;
+  color: getColor('primary-text');
   cursor: pointer;
 
   @media screen and(min-width:$tablet) {
@@ -228,8 +233,8 @@ z-index: 0;
   text-align: center;
   box-sizing: border-box;
   background-color: inherit;
-  color: #dc56c5;
-  border: 1px solid #DC56C5;
+  color: getColor('primary-title-text');
+  border: 1px solid getColor('primary-title-text');
   border-radius: 10px 0px;
   cursor: pointer;
 
@@ -252,11 +257,11 @@ z-index: 0;
   line-height: 17px;
   letter-spacing: 0em;
   text-align: bottom;
-  color: white;
+  color: getColor('primary-text');
   background-color: inherit;
   border: none;
   cursor: default;
-  color: white;
+  color: getColor('primary-text');
 
   @media screen and(min-width:$tablet) {
     font-size: 16px;

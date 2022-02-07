@@ -1,4 +1,4 @@
-import { galleryRender } from './render-gallery';
+import { galleryRender } from '../render-gallery';
 
 /*
 * Plugin paginacji
@@ -78,10 +78,10 @@ class Pagination {
       this.temporary.push('...');
       this.temporary.push(this.pageNumber);
       }
-  if (this.pageNumber == this.elementsToShow) {
-    this.temporary.pop(this.pageNumber);
-    this.temporary.pop('...');
-  }
+    if (this.pageNumber == this.elementsToShow) {
+      this.temporary.pop(this.pageNumber);
+      this.temporary.pop('...');
+    }
 
       this.paginationContainer.innerHTML = '';
       this.temporary.map((num, index) => {
@@ -90,7 +90,9 @@ class Pagination {
 
     const dots = document.querySelector('.pagination__dots');
     //wyłączenie możliwości kliknięcia w kropki
-    dots.disabled=true;
+      if (dots) {
+        dots.disabled=true;
+      }
     } catch (error) {
       console.log(error);
     }
@@ -109,7 +111,7 @@ class Pagination {
     </span>`;
 
 
-    handlePaginationOnClick = async e => {
+  handlePaginationOnClick = async e => {
     e.preventDefault();
     this.cardContainer.innerHTML = '';
     document
@@ -119,12 +121,14 @@ class Pagination {
     e.target.closest('li')?.classList.add('pagination__link--active');
       this.currentPage = e.target.textContent;
 
-    await galleryRender({country: this.country, page: +this.currentPage, keyword: this.keyword, authorId: this.authorId});
+      await galleryRender({
+        country: this.country,
+        page: +this.currentPage,
+        keyword: this.keyword,
+        authorId: this.authorId,
+      });
     e.preventDefault()
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+
   };
 
   paginationClear() {
