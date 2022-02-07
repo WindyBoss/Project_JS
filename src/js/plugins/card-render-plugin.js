@@ -16,8 +16,8 @@ class RenderCard {
 
       // ustawiam cechy obiektu
         this.eventName = this.checkData(event.name, 'No Name Info');
-        this.eventNameCutted = this.cutInfo(this.checkData(event.name, 'No Name Info'), 40);
-        this.eventInfo = this.cutInfo(this.checkData(event.info, 'No Event Info'), 50);
+    this.eventNameCutted = this.checkData(event.name, 'No Name Info');
+        this.eventInfo = this.checkData(event.info, 'No Event Info');
         this.eventDate = this.checkData(event.dates.start.localDate, 'No Date Info');
         this.id = this.checkData(event.id, 'No Id');
 
@@ -127,7 +127,9 @@ class RenderCard {
 
           <div class="modal-window modal-closed" id='${this.id}'>
             <div class="modal-window__container" id='${this.venueId}'>
-              <svg class="modal-window__close--btn"><use class='modal-window__close--btn' href="${this.svgSprite}#icon-close"></use></svg>
+              <svg class="modal-window__close--btn">
+                <use class='modal-window__close--btn' href="${this.svgSprite}#icon-close"></use>
+              </svg>
                 <div class="modal-window__logo-img--container">
                   <img class="modal-window__logo-img"
                   ${this.setGalleryImageContainer(this.imagesListSmall)}
@@ -265,16 +267,6 @@ class RenderCard {
     return newPrice;
   };
 
-    // funkcja skrócenia zbyt długiego tekstu
-    cutInfo(text, maxLength) {
-      let newText = text;
-      if (text.length > maxLength) {
-        newText = `${text.slice(0, maxLength)}...`
-      }
-
-      return newText;
-    }
-
     // funkcja grupowania zdjęc po width
     setImages(images) {
       const imagesListSmall = [];
@@ -301,31 +293,31 @@ class RenderCard {
       if (container.length > 3) {
         return `
               srcset="
-              ${container[0].url}   450w,
-              ${container[1].url}   900w,
-              ${container[2].url}   1350w,
-              ${container[3].url}   1800w
+              ${container[0].url}   250w,
+              ${container[1].url}   500w,
+              ${container[2].url}   750w,
+              ${container[3].url}   1000w
               "
             data-src="${container[0].url}"`
       } else if (container.length === 3) {
         return `
               srcset="
-              ${container[0].url}   450w,
-              ${container[1].url}   900w,
-              ${container[2].url}   1350w,
+              ${container[0].url}   250w,
+              ${container[1].url}   500w,
+              ${container[2].url}   750w,
               "
             data-src="${container[0].url}"`
       } else if (container.length === 2) {
         return `
               srcset="
-              ${container[0].url}   450w,
-              ${container[1].url}   900w,
+              ${container[0].url}   250w,
+              ${container[1].url}   500w,
               "
             data-src="${container[0].url}"`
       } else if (container.length < 2) {
         return `
               srcset="
-              ${container[0].url}   450w,
+              ${container[0].url}   250w,
               "
             data-src="${container[0].url}"`
       }

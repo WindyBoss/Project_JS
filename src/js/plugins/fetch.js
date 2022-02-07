@@ -53,7 +53,7 @@ class MakeFetch {
     this.LoaderPlugin = new Loader(this.loadContainer);
     // oddaję linka z pomocą plugina
     this.link = this.linkGeneratorPlugin.giveLink();
-    this.svgSprite = `<svg class='failed-svg'><use href="${svg}#icon-denied"></use></svg>`;
+    this.svgSprite = svg;
 
   }
 
@@ -101,7 +101,10 @@ class MakeFetch {
   _failedFetch(error) {
     console.log(error);
     this.LoaderPlugin.hideLoading();
-    const notif = `<p class='failed'>${this.svgSprite} Sorry, we do not find the result of your search, try please later</p>`;
+    const notif = `<p class='failed'>
+      <svg class='failed-svg'>
+        <use href="${this.svgSprite}#icon-denied"></use>
+      </svg>Sorry, we do not find the result of your search, try please later</p>`;
     this.container.insertAdjacentHTML('afterbegin', notif);
     this._addStyle(this.container, 'shown')
   }
