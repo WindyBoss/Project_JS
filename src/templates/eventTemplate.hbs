@@ -1,0 +1,72 @@
+
+        <div class="gallery__event">
+          <div class="event__image--container">
+            <img class="event__image lazyload"
+              {{this.imageContainerMedium}}
+              alt ="{{this.eventNameCutted}}"
+              loading="lazy"
+              sizes="(min-width: 1200px) 25vw, (min-width: 480px) 33vw, 50vw"/>
+          </div>
+          <div class="event__info">
+            <p class="event__title">{{this.eventNameCutted}}</p>
+            <p class="event__date">{{this.eventDate}}</p>
+            <p class="event__place"> {{this.eventLocation}}</p>
+          </div>
+          <div class="modal-window modal-closed">
+            <div class="modal-window__container">
+              <div class="modal-window__close--btn-container">
+                <svg class='modal-window__close--btn'>
+                  <use href="{{this.svgSprite}}#icon-close"></use>
+                </svg>
+              </div>
+                <div class="modal-window__logo-img--container">
+                  <img class="modal-window__logo-img"
+                  {{this.imageContainerSmall}}
+                  alt ="{{this.eventName}}"/>
+                </div>
+                <div class="modal-window__info">
+                <div class="modal-window__main--image-container">
+                <img class="modal-window__main--image"
+                {{this.imageContainerLarge}}
+                  alt ="{{this.eventName}}"/>
+                </div>
+                <div class='modal-window__main-info--container'>
+                  <div>
+                {{#if this.eventInfo}}
+                  <div class="modal-window__info--container">
+                    <h2 class="modal-window__title">Info</h2>
+                    <p class="modal-window__text">{{this.eventInfo}}</p>
+                  </div>
+                {{/if}}
+                {{#if this.eventDate}}
+                  <div class="modal-window__info--container">
+                    <h2 class="modal-window__title">When</h2>
+                    <p class="modal-window__text">{{this.eventDate}}</p>
+                    <p class="modal-window__text">{{this.eventTime}} {{this.eventTimeZone}}</p>
+                  </div>
+                {{/if}}
+                {{#if this.eventCity}}
+                  <div class="modal-window__info--container">
+                    <h2 class="modal-window__title">Where</h2>
+                    <p class="modal-window__text">{{this.eventCity}} {{this.eventCountry}}</p>
+                    <p class="modal-window__text">{{this.eventLocation}}</p>
+                  </div>
+                {{/if}}
+                {{#if this.eventName}}
+                  <div class="modal-window__info--container">
+                    <h2 class="modal-window__title">Who</h2>
+                    <p class="modal-window__text">{{this.eventName}}</p>
+                  </div>
+                {{/if}}
+                </div>
+                <div>
+                  <div class="modal-window__info--container price">
+                    <h2 class="modal-window__title">Prices</h2>
+                    {{this.standardPriceContainer}}
+                  </div>
+                  <button class="modal-window__more--btn" type="button">MORE FROM THIS AUTHOR</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+      </div>

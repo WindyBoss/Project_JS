@@ -1,13 +1,31 @@
-@mixin centeredFlex($type) {
-    display: $type;
-    align-items: center;
-    justify-content: center;
-  }
+
+@mixin centeredFlex($display) {
+  display: $display;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin containerFlexControll($flex-direction, $justify-content, $align-items) {
+  display: flex;
+  flex-direction: $flex-direction;
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
+
+@mixin containerSize($width, $height, $max-width, $max-height, $min-width, $min-height) {
+  width: $width;
+  height: $height;
+  max-width: $max-width;
+  max-height: $max-height;
+  min-width: $min-width;
+  min-height: $min-height;
+}
+
 
 @mixin transform($property) {
-    transition-property: $property;
-    transition-duration: $transition-duration;
-    transition-timing-function: $transition-timing-function;
+  transition-property: $property;
+  transition-duration: $transition-duration;
+  transition-timing-function: $transition-timing-function;
 }
 
 @mixin btnColorStyle(
@@ -24,8 +42,39 @@
 
   &:hover,
   &:focus {
-      background-color: $hover-bg-color;
-      color: $hover-color;
-      border: 1px solid $hover-border-color;
+    background-color: $hover-bg-color;
+    color: $hover-color;
+    border: 1px solid $hover-border-color;
   }
+}
+
+
+@mixin border($width, $type, $color, $radius-1, $radius-2) {
+  border: $width $type $color;
+  border-radius: $radius-1 $radius-2;
+  box-sizing: border-box;
+}
+
+@mixin setPosition($position, $top, $bottom, $right, $left) {
+  position: $position;
+  top: $top;
+  bottom: $bottom;
+  right: $right;
+  left: $left;
+}
+
+@mixin textFormatter($color, $size, $weight, $height, $spacing, $family, $style, $align) {
+  color: $color;
+  font-family: $family;
+  font-size: $size;
+  font-weight: $weight;
+  font-style: $style;
+  line-height: $height;
+  letter-spacing: $spacing;
+  text-align: $align;
+}
+
+@mixin marginPadding($margin-top, $margin-right, $margin-bottom, $margin-left, $padding-top, $padding-right, $padding-bottom, $padding-left) {
+  margin: $margin-top $margin-right $margin-bottom $margin-left;
+  padding: $padding-top $padding-right $padding-bottom $padding-left;
 }

@@ -1,107 +1,110 @@
 .header {
-  background: (linear, left top, right top, from(getColor('first-header-bg-color')), color-stop(50%, getColor('second-header-bg-color'))),url(../images/bg-mobile.jpg);
-  background: linear-gradient( 90deg, getColor('first-header-bg-color') 0%, getColor('second-header-bg-color') 50%),url(../images/bg-mobile.jpg);
-  background-repeat: no-repeat;
+  @include marginPadding (0, auto, 0, auto, 0, 0, 0, 0);
   height: 364px;
   position: relative;
-  width: 320px;
-  margin: 0 auto;
+
+  @media screen and (max-width: $tablet) {
+    background: (linear, left top, right top, from(getColor('first-header-bg-color')), color-stop(50%, getColor('second-header-bg-color'))),
+    url(../images/bg-tablet.jpg);
+    background: linear-gradient(90deg, getColor('first-header-bg-color') 0%, getColor('second-header-bg-color') 50%),
+    url(../images/bg-tablet.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+  };
+
+  @media screen and (min-width: $tablet) {
+    background: (linear, left top, right top, from(getColor('first-header-bg-color')), color-stop(50%, getColor('second-header-bg-color'))),
+    url(../images/bg-desktop.jpg);
+    background: linear-gradient(90deg, getColor('first-header-bg-color') 0%, getColor('second-header-bg-color') 50%),
+    url(../images/bg-desktop.jpg);
+    background-position: center;
+  };
+
+  @media screen and (min-width: 1280px) {
+    @include containerSize (auto, 446px, 1280px, 1280px, auto, auto);
+  }
 }
 
 .header .container {
+  @include marginPadding (0, 0, 0, 0, 0, 0, 0, 0);
   background: unset;
-  margin: 0px;
-  padding: 0px;
   display: flex;
   flex-direction: column;
 }
 
 .header__logo {
-  position: absolute;
-  top: 0px;
-  left: 0px;
+  @include setPosition(absolute, 0px, auto, auto, 0px);
 }
 
 .header__title-text {
-  width: 212px;
-  color: getColor('primary-title-text');
-  font-weight: 900;
-  font-size: 18px;
-  line-height: 1.222;
-  text-align: center;
-  margin-top: 78px;
-  margin-left: 53px;
-  margin-bottom: 25px;
+  @include textFormatter (getColor('primary-title-text'), clamp(16px, 3vw, 24px), 900, $line-height, 0em, Montserrat, normal, center);
+  @include marginPadding (70px, auto, 25px, auto, 0, 0, 0, 0);
+  @include containerSize (auto, auto, 50%, 100%, auto, auto);
   transform-origin :center center;
   animation: moverotate 2s linear 1;
-}
 
-.header__search-bar {
-  margin-left: 25px;
-  width: 270px;
+  @media screen and (min-width: $tablet) and (max-width: $desktop_1) {
+    @include marginPadding (100px, auto, 25px, auto, 0, 0, 0, 0);
+    @include containerSize (353px, auto, 100%, 100%, auto, auto);
+    @include textFormatter (getColor('primary-title-text'), clamp(16px, 3vw, 40px), 900, $line-height, 0em, Montserrat, normal, center);
+  }
+
+  @media screen and (min-width: $desktop) {
+    @include marginPadding (100px, auto, 50px, auto, 0, 0, 0, 0);
+    @include containerSize (auto, auto, 40%, 100%, auto, auto);
+    @include textFormatter (getColor('primary-title-text'), clamp(16px, 3vw, 50px), 900, $line-height, 0em, Montserrat, normal, center);
+  }
 }
 
 .search-bar__wrap {
+  @include textFormatter (getColor('secondary-text'), 16px, 400, $line-height, 0em, Montserrat, normal, center);
+  @include containerSize (270px, 40px, 100%, 100%, auto, auto);
+  @include marginPadding (0, 0, 25px, 0, 0, 0, 0, 0);
   box-sizing: border-box;
   border-radius: 20px;
   border-style: none;
-  width: 270px;
-  height: 40px;
-  margin-bottom: 25px;
-  color: getColor("secondary-text");
-  font-size: 16px;
-  line-height: 1.21;
-  font-weight: 400;
   text-decoration: none;
 }
 
 .search-bar__input{
+  @include textFormatter (getColor('secondary-text'), 16px, 400, $line-height, 0em, Montserrat, normal, center);
+  @include containerSize (270px, 40px, 100%, 100%, auto, auto);
+  @include marginPadding (0, 0, 0, 0, 10px, 30px, 10px, 30px);
+
+  border-radius: 20px;
+  text-decoration: none;
   border: hidden;
   outline: none;
-  width: 270px;
-  height: 40px;
-  padding: 10px 30px;
-  background: getColor('main-bg-color');
+  background-color: getColor('main-bg-color');
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(50px);
-  border-radius: 20px;
-  color: getColor("secondary-text");
-  font-size: 16px;
-  line-height: 1.21;
-  font-weight: 400;
-  text-decoration: none;
 }
 
 .country {
+  @include marginPadding (0, 0, 25px, 0, 10px, 30px, 10px, 30px);
+  @include textFormatter (getColor('secondary-text'), 16px, 400, $line-height, 0em, Montserrat, normal, center);
+  @include containerSize (270px, 40px, 100%, 100%, auto, auto);
+
   border: hidden;
   outline: none;
-  width: 270px;
-  height: 40px;
+  text-decoration: none;
+  appearance: none;
   background: getColor('main-bg-color');
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(50px);
   border-radius: 20px;
-  padding: 10px 30px;
-  color: getColor("secondary-text");
-  font-size: 16px;
-  line-height: 1.21;
-  font-weight: 400;
-  text-decoration: none;
-  margin-bottom: 25px;
-  appearance: none;
   z-index: 0;
 
   & option {
+    @include border (1px, solid, getColor('header-border-color'), 0px, 0px);
     background-color: getColor('gallery-bg-color');
     color: getColor('primary-title-text');
-    border: 1px solid getColor('header-border-color');
 
     &:hover,
     &:focus {
+      @include border (1px, solid, getColor('footer-bg-color'), 0px, 0px);
       background-color: getColor('header-option-bg-color');
       color: getColor('primary-title-text');
-      border: 1px solid getColor('footer-bg-color');
-
     }
   }
 }
@@ -178,41 +181,17 @@ animation: bounce-in 1s ease-in-out 0s 1 normal;
   };
 }
 
+  .header__list {
+    // display: flex;
+    // flex-direction: row;
+    // width: 768px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
 // --------------------------- TABLET ------------------------------ //
 
 @media screen and (min-width: 768px) and (max-width: 1279px) {
-  .header {
-    background: (linear, left top, right top, from(getColor('first-header-bg-color')), color-stop(50%, getColor('second-header-bg-color'))),
-    url(../images/bg-tablet.jpg);
-    background: linear-gradient(90deg, getColor('first-header-bg-color') 0%, getColor('second-header-bg-color') 50%),
-    url(../images/bg-tablet.jpg);
-    height: 364px;
-    min-width: 768px;
-  }
-
-  .header__list {
-    display: flex;
-    flex-direction: row;
-    width: 768px;
-  }
-
-  .header__title-text {
-    width: 353px;
-    color: getColor("primary-title-text");
-    font-weight: 900;
-    font-size: 30px;
-    line-height: 1.219;
-    text-align: center;
-    margin-top: 40px;
-    margin-left: 208px;
-    margin-bottom: 27px;
-  }
-
-  .header__search-bar {
-    margin-left: 99px;
-    width: 768px;
-  }
 
   .search-bar__form{
     display: flex;
@@ -234,25 +213,13 @@ animation: bounce-in 1s ease-in-out 0s 1 normal;
     background: linear-gradient( 90deg, getColor('first-header-bg-color') 0%, getColor('second-header-bg-color') 50%),url(../images/bg-desktop.jpg);
     height: 446px;
     min-width: 1280px;
+    max-width: 1280px;
   }
 
   .header__list {
     display: flex;
     flex-direction: row;
     width: 1280px;
-  }
-
-
-  .header__title-text {
-    width: 600px;
-    color: getColor('primary-title-text');
-    font-weight: 900;
-    font-size: 50px;
-    line-height: 1.22;
-    text-align: center;
-    margin-top: 40px;
-    margin-left: 345px;
-    margin-bottom: 52px;
   }
 
   .header__search-bar {

@@ -1,217 +1,184 @@
-
-
 .modal-window {
-    @include centeredFlex (flex);
-    position: fixed;
-    top: 0vw;
-    left: 0vw;
-    height: 100%;
-    width: 100vw;
-    background-color: getColor("modal-bg-color");
-    transform: translate(0, 0);
-    z-index: 10000;
+  @include containerFlexControll (column, center, center);
+  @include setPosition (fixed, 0vw, auto, auto, 0vw);
+  @include containerSize (100vw, 100%, 100%, 100%, auto, auto);
 
-    @include transform (transform);
+  background-color: getColor("modal-bg-color");
+  transform: translate(0, 0);
+  z-index: 10000;
+
+  @include transform (transform);
 
   &.modal-closed {
     transform: translate(100vw, 0);
-    position: absolute;
+    @include setPosition (absolute, 0vw, auto, auto, 0vw);
   }
 
   &__container {
-      background-color: getColor("modal-container-bg-color");
-      position: fixed;
-      overflow: hidden;
-      border-radius: 300px 0;
-      top: 50%;
-      width: 930px;
-      height: 95%;
-      transform: translate(0px, -50%);
+    @include containerSize (70%, 85%, 100%, 100%, auto, auto);
+    @include setPosition (fixed, 50%, auto, auto, auto);
+    @include containerFlexControll (column, start, center);
 
+    background-color: getColor("modal-container-bg-color");
+    overflow: hidden;
+    text-align: center;
+    border-radius: 40vw 0;
+    transform: translate(0px, -50%);
 
-      @media screen and (min-width: $tablet) and (max-width: $desktop_1) {
-        width: 595px;
-        height: 831px;
-      }
+    @media screen and (min-width: $tablet) {
+      @include containerSize (80%, 80vh, 1000px, 1000px, auto, auto);
+    }
 
-      @media screen and (max-width: $tablet_1) {
-        text-align: center;
-        justify-content: center;
-        width: 280px;
-        border-radius: 150px 0;
+    @media screen and (min-width: $desktop) {
+      border-radius: 30vw 0;
     }
   }
 
   &__info {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+
     &--container {
-        width: 90%;
-        @extend %centered-container;
+      @include containerSize (90%, auto, 100%, 100%, auto, auto);
+      @include marginPadding (0, auto, 0, auto, 0, 0, 0, 0);
 
       @media screen and (min-width: $tablet) {
-        width: 265px;
-        margin: 0;
+        @include containerSize (265px, auto, 100%, 100%, auto, auto);
+        @include marginPadding (0, 30px, 0, 0, 0, 0, 0, 0);
+        text-align: end;
       }
-      @media screen and (min-width: $desktop) {
-        width: 450px;
-        margin: 0;
+
+      &.price {
+        @media screen and (min-width: $tablet) {
+          & .modal-window__text {
+            @include marginPadding (0, 0, 10px, 0, 0, 0, 0, 0);
+          }
+          text-align: start;
+        }
       }
     }
   }
 
   &__main-info--container {
-    @extend %centered-container;
-    display: flex;
-    flex-direction: column;
+    @include marginPadding (0, 0, 0, 0, 0, 0, 0, 0);
+    @include containerFlexControll (column, center, center);
     @media screen and (min-width: $tablet) {
-      margin-left: 0;
-      margin-right: 0;
-      max-width: 260px;
+      @include containerFlexControll (row, center, start);
+      @include containerSize (auto, auto, 260px, 100%, auto, auto);
     }
   }
-
 
   &__logo-img {
-
     &--container {
-      @extend %centered-container;
+      @include containerFlexControll (column, center, center);
+      @include containerSize (80px, 80px, 100%, 100%, auto, auto);
+      @include marginPadding (7vh, 0, 0, 0, 0, 0, 0, 0);
       border-radius: 50%;
-      display: flex;
-      justify-content: center;
       overflow: hidden;
-      margin-top: 30px;
-      width: 80px;
-      height: 80px;
-      margin-bottom: 41px;
 
-      @media screen and (min-width: $tablet) and (max-width: $desktop_1) {
-        margin-top: 28px;
-        width: 70px;
-        height: 70px;
-        margin-bottom: 43px;
-      }
-
-      @media screen and (max-width: $tablet_1) {
-        width: 102px;
-        height: 102px;
-        margin-top: 75px;
-        margin-bottom: 0;
+      @media screen and (min-width: $tablet) {
+        display: none;
       }
     }
   }
-
-  // &__main--image {
-  //   display: block;
-  //   width: 360px;
-  //   height: 413px;
-  //   margin-left: 50px;
-  //   margin-right: 60px;
-  //     @media screen and (min-width: $tablet) and (max-width: $desktop_1) {
-  //       width: 233px;
-  //       margin-right: 30px;
-  //     }
-  //     @media screen and (max-width: $tablet_1) {
-  //       display: none;
-  //     }
-  // }
 
     &__main--image {
       display: block;
       width: auto;
 
       &-container {
-        display: flex;
-        justify-content: center;
+        display: none;
         overflow: hidden;
-        width: 360px;
-        margin-left: 50px;
-        margin-right: 60px;
 
-        @media screen and (min-width: $tablet) and (max-width: $desktop_1) {
-          width: 233px;
-          margin-right: 30px;
-          height: 400px;
+        @media screen and (min-width: $tablet) {
+          @include containerFlexControll (row, center, stretch);
+          @include containerSize (75vw, 40vh, 950px, 500px, auto, auto);
+          @include border (1px, getColor("modal-btn-bg-color"), solid, 35vw, 0);
+          @include marginPadding (13px, 0, 0, 30px, 0, 0, 0, 0);
         };
-        @media screen and (max-width: $tablet_1) {
-          display: none;
-        };
+
+        @media screen and (min-width: $desktop) {
+          @include marginPadding (30px, 0, 0, 30px, 0, 0, 0, 0);
+          @include containerSize (60vw, 30vh, 750px, 500px, auto, auto);
+        }
       }
     }
 
   &__title {
-    @extend %centered-container;
-    margin-bottom: 5px;
-    font-weight: 600;
-    font-size: 20px;
-    color: getColor("primary-title-text");
-    line-height: $line-height;
-    margin-top: 10px;
+    @include textFormatter (getColor("primary-title-text"), clamp(16px, 16px + 0.5vw, 30px), 600, $line-height, 0em, Montserrat, normal, inherit);
+    @include marginPadding (1vh, auto, 5px, auto, 0, 0, 0, 0);
 
-    @media screen and (max-height: $small_mobile) {
-      font-size: 14px;
+    @media screen and (max-height: $small_mobile) and (max-width: $tablet) {
+      @include textFormatter (getColor("primary-title-text"), $main-modal-font-size-low-screen, 600, $line-height, 0em, Montserrat, normal, inherit);
     }
+
+    @media screen and (min-width: $tablet) {
+      @include marginPadding (1vh, 0, 5px, 0, 0, 0, 0, 0);
+    }
+
     @media screen and (min-width: $desktop) {
-      font-size: 24px;
+      @include textFormatter (getColor("primary-title-text"), clamp(16px, 16px + 0.5vw, 20px), 600, $line-height, 0em, Montserrat, normal, inherit);
     }
+
   }
 
   &__text {
+    @include textFormatter (getColor("modal-text"), clamp(12px, 12px + 0.5vw, 28px), 400, $line-height, 0em, Montserrat, normal, inherit);
+    @include marginPadding (0, auto, 0, auto, 0, 0, 0, 0);
+    @include containerSize (auto, auto, 50vw, 100%, auto, auto);
     position: relative;
-    color: getColor("modal-text");
     text-overflow: ellipsis;
-    overflow:hidden;
-    white-space:nowrap;
-    font-size: $main-modal-font-size-high-screen;
+    overflow: hidden;
+    white-space: nowrap;
+
     @media screen and (max-height: $small_mobile) {
-      font-size: $main-modal-font-size-low-screen;
+      @include textFormatter (getColor("modal-text"), clamp(10px, 10px + 0.5vw, 20px), 400, $line-height, 0em, Montserrat, normal, inherit);
     }
-    line-height: $line-height;
-    @extend %centered-container;
-    margin-left: 20px;
-    font-weight: 400;
 
     @media screen and (min-width: $tablet) {
-      margin-left: 0;
+      @include marginPadding (0, auto, 0, 0, 0, 0, 0, 0);
+      @include containerSize (auto, auto, 35vw, 100%, auto, auto);
+      @include marginPadding (0, auto, 0, 30px, 0, 0, 0, 0);
     }
     @media screen and (min-width: $desktop) {
-      font-size: 18px;
+      @include textFormatter (getColor("modal-text"), clamp(12px, 12px + 0.5vw, 16px), 400, $line-height, 0em, Montserrat, normal, inherit);
     }
+
   }
 
   &__price-container{
+    display: flex;
+    flex-direction: column;
     & .modal-window__text {
-      display: flex;
-      padding-bottom: 10px;
+      display: inline-flex;
+      margin-bottom: 1vh;
       &::before {
-        display: inline-block;
-        margin-right: 13px;
         content: '';
-        width: 20px;
-        height: 20px;
+        @include containerSize (clamp(15px, 15px + 0.1vw, 20px), clamp(15px, 15px + 0.1vw, 20px), 100%, 100%, auto, auto);
+        display: inline-block;
+        margin-right: clamp(5px, 5px + 0.5vw, 15px);
         background-image: url(../images/svg/barcode.png);
     }
   }
 }
   &__btn {
     @extend %modal-button;
-    width: 145px;
-    height: 40px;
+    @include containerSize (145px, 40px, 100%, 100%, auto, auto);
+    @include marginPadding (0, auto, 2vh, auto, 0, 0, 0, 0);
 
+    @include btnColorStyle(getColor("modal-btn-bg-color"), getColor("primary-text"), getColor("modal-btn-bg-color"), getColor("primary-title-text"), getColor("primary-text"), getColor("primary-title-text"));
 
-    @include btnColorStyle(
-      getColor("modal-btn-bg-color"),
-      getColor("primary-text"),
-      getColor("modal-btn-bg-color"),
-      getColor("primary-title-text"),
-      getColor("primary-text"),
-      getColor("primary-title-text"),
-      );
+    @media screen and (max-height: $small_mobile) and (max-width: $mobile) {
+      font-size: clamp(10px, 10px + 0.5vw, 20px);
+      @include containerSize (100px, 20px, 100%, 100%, auto, auto);
+    }
+
+    @media screen and (min-width: $tablet) {
+      @include marginPadding (0, 0, 2vh, 0, 0, 0, 0, 0);
+    }
 
     &-text {
-      font-size: $main-modal-font-size-high-screen;
-      @media screen and (max-height: $small_mobile) {
-        font-size: $main-modal-font-size-low-screen;
-      }
       line-height: $line-height;
       color: getColor("primary-text");
     }
@@ -223,36 +190,21 @@
 
   &__more--btn {
     @extend %modal-button;
-    @extend %centered-container;
-    width: 230px;
-    height: 40px;
-    margin-top: 30px;
+    @include marginPadding (1vh, auto, 0, auto, 15px, 2vw, 15px, 2vw);
+    @include btnColorStyle(transparent, getColor("modal-btn-bg-color"), getColor("modal-btn-bg-color"), transparent, getColor("primary-title-text"), getColor("primary-title-text"));
 
-    @include btnColorStyle(
-      transparent,
-      getColor("modal-btn-bg-color"),
-      getColor("modal-btn-bg-color"),
-      transparent,
-      getColor("primary-title-text"),
-      getColor("primary-title-text"),
-    );
-
-    font-size: $main-modal-font-size-high-screen;
+    font-size: clamp(12px, 12px + 0.5vw, 24px);
     line-height: $line-height;
-    padding: 0;
 
     @media screen and (min-width: $tablet) {
-      position: absolute;
-      bottom: 10%;
-      left: 50%;
-      width: 255px;
+      @include containerSize (auto, auto, 100%, 100%, auto, auto);
+      @include setPosition (absolute, auto, 5%, auto, 50%);
       transform: translate(-50%, 0);
-      margin-top: 50px;
     }
 
     @media screen and (max-height: $small_mobile) and (max-width: $mobile) {
+      @include containerSize (auto, auto, 100%, 100%, auto, auto);
       font-size: $main-modal-font-size-low-screen;
-      width: 160px;
     }
 
     &.check-website {
@@ -260,49 +212,54 @@
         position: relative;
         margin-top: 100px;
       }
-  }
+    }
   }
 
   &__close--btn {
-    position: absolute;
-    right: 25px;
-    top: 25px;
-    width: 17px;
-    height: 17px;
+    @include containerSize (17px, 17px, 100%, 100%, auto, auto);
+    @include transform (fill);
     fill: getColor("modal-btn-bg-color");
 
+    &:hover,
+    &:focus {
+      fill: getColor("primary-title-text");
+    }
 
-    @include transform (fill);
-    @include transform (cursor);
+    &-container {
+      @include setPosition (absolute, 30px, auto, 25px, auto);
+      @include marginPadding (0, 0, 0, 0, 10px, 10px, 10px, 10px);
+      border-radius: 20px 0;
+      background-color: transparent;
 
-     &:hover,
-     &:focus {
-        cursor: pointer;
-        fill: getColor("primary-title-text");
-     }
-  }
-}
-    .failed {
-      position: fixed;
-      display: flex;
+      @media screen and (min-width: $tablet) {
+        @include transform (cursor);
+        @include transform (background-color);
+        background-color: getColor("modal-container-bg-color");
 
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, 0);
-
-      text-align: center;
-      align-items: center;
-
-      font-size: 30px;
-      color: getColor("primary-title-text");
-      background-color: getColor("main-bg-color");
-      padding: 25px;
-      border-radius: 50px;
-    &-svg{
-      fill: getColor('primary-text');
-      width: 80px;
-      height: 80px;
+        &:hover,
+        &:focus {
+          cursor: pointer;
+          background-color: getColor("modal-bg-color");
+        }
+      }
     }
   }
+}
+
+.failed {
+  @include setPosition (fixed, 50%, auto, auto, 50%);
+  @include containerFlexControll(row, center, center);
+  @include textFormatter(getColor('primary-title-text'), clamp(14px, 14px + 0.6vw, 30px), 700, $line-height, 0em, Montserrat, normal, center);
+  @include marginPadding (0, 0, 0, 0, 25px, 25px, 25px, 25px);
+  transform: translate(-50%, 0);
+  background-color: getColor("main-bg-color");
+  border-radius: 50px;
+
+  &-svg{
+    fill: getColor('primary-text');
+    width: 80px;
+    height: 80px;
+  }
+}
 
 

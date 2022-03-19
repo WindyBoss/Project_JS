@@ -29,7 +29,6 @@ body {
 }
 .container {
   display: flex;
-  max-width: 320px;
   background: (linear, left top, right top, from(getColor('first-header-bg-color')), color-stop(50%, getColor('second-header-bg-color'))),
     url(../images/main-bg.png);
   background: linear-gradient(90deg, getColor('first-header-bg-color') 0%, getColor('second-header-bg-color') 50%),

@@ -79,7 +79,7 @@ class ModalController {
   // przycisk 'Check on Website ma zbyt mały width, zmieniam width na 200px
   setAdditionalBtnStyle() {
     const btn = this.modalWindow.querySelector(`.modal-window__btn`);
-    if (btn.textContent.includes('Check on Website')) {
+    if (btn && btn.textContent.includes('Check on Website')) {
       btn.classList.add('check');
     }
   }
