@@ -2,6 +2,7 @@ import { MakeFetch } from './plugins/fetch';
 import { Pagination } from './plugins/pagination';
 import { refs } from './components/refs';
 import { EventListener } from './components/addEventListener';
+import { saveLocalStorage, getLocalStorage } from './components/localStorage';
 
 import Svg from '../images/svg/symbol-defs.svg';
 
@@ -16,7 +17,10 @@ import Svg from '../images/svg/symbol-defs.svg';
 
 async function galleryRender({ country, page, keyword, authorId}) {
     // żeby uniknąc nakładania eventListenerów przy paginacji zamieniam kontener paginacji na klona
-    window.scrollTo({
+
+  saveLocalStorage(keyword, country)
+
+  window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });

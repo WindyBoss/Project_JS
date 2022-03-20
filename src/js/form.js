@@ -3,6 +3,7 @@ import { refs } from './components/refs';
 let keyword = '';
 let countryCode = '';
 import { EventListener } from './components/addEventListener';
+const KEY = 'LocalStorageKey';
 
 // funkcja call fetch z pomocą formy
 async function searchEvents(event) {
