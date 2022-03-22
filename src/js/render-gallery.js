@@ -2,7 +2,7 @@ import { MakeFetch } from './plugins/fetch';
 import { Pagination } from './plugins/pagination';
 import { refs } from './components/refs';
 import { EventListener } from './components/addEventListener';
-import { saveLocalStorage, getLocalStorage } from './components/localStorage';
+import { saveLocalStorage } from './components/localStorage';
 
 import Svg from '../images/svg/symbol-defs.svg';
 
