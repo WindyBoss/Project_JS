@@ -1,11 +1,10 @@
 import { galleryRender } from './render-gallery';
 import { refs } from './components/refs';
+import { EventListener } from './components/addEventListener';
+
 let keyword = '';
 let countryCode = '';
-import { EventListener } from './components/addEventListener';
-const KEY = 'LocalStorageKey';
 
-// funkcja call fetch z pomocą formy
 async function searchEvents(event) {
   event.preventDefault();
   keyword = refs.input.value;
@@ -24,11 +23,12 @@ const formListener = new EventListener({
     callbackFunction: searchEvents,
 })
 
-formListener.setEventListener()
+formListener.setEventListener();
+
 
 const selectListener = new EventListener({
-    domElement: refs.select,
-    listenType: 'change',
+    domElement: refs.inputContainer,
+    listenType: 'click',
     callbackFunction: searchEvents,
 })
 

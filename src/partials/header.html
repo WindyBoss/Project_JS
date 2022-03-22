@@ -1,9 +1,9 @@
 <section class="header">
   <div class="container">
     <picture class="header__list-item header__logo animate-logo">
-      <source media="(min-width:1280px)" srcset="./images/logo-desktop.png">
-      <source media="(min-width:768px)" srcset="./images/logo-tablet.png">
-      <img src="./images/logo-mobile.png" alt="Flowers" style="width:auto;">
+      <source media="(min-width:1280px)" srcset="./images/desktop/logo-desktop.png">
+      <source media="(min-width:768px)" srcset="./images/tablet/logo-tablet.png">
+      <img src="./images/mobile/logo-mobile.png" alt="Flowers" style="width:auto">
     </picture>
     <div class="header__list-item header__title">
       <h1 class="header__title-text">FIND BEST EVENTS AROUND THE WORLD</h1>
@@ -25,8 +25,9 @@
             </svg>
           </div>
           <div class="search-bar__wrap search-bar__wrap-drop animate-left">
+            <div class="custom-select">
             <select class="country">
-              <option value="">Choose country:</option>
+              <option value="">Choose country</option>
               <option value="us">America</option>
               <option value="au">Australia</option>
               <option value="at">Austria</option>
@@ -49,9 +50,7 @@
               <option value="es">Spain</option>
               <option value="ch">Switzerland</option>
             </select>
-            <svg class="drop-down__icon">
-              <use href="./images/svg/symbol-defs.svg#icon-triangle"></use>
-            </svg>
+            </div>
           </div>
         </form>
       </li>

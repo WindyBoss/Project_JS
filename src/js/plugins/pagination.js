@@ -1,8 +1,8 @@
 import { galleryRender } from '../render-gallery';
+import paginationDots from '../../templates/pagination/paginationDots.hbs';
+import paginationLink from '../../templates/pagination/paginationPage.hbs';
+import paginationLinkActive from '../../templates/pagination/paginationPageActive.hbs';
 
-/*
-* Plugin paginacji
-*/
 class Pagination {
   constructor({
     currentPage = 1,
@@ -14,7 +14,6 @@ class Pagination {
     keyword,
   }) {
 
-    // ustawiam cechy obiektu
     this.currentPage = currentPage;
     this.pageNumber = this.setPageNumber(pageNumber);
     this.paginationContainer = paginationContainer;
@@ -35,7 +34,6 @@ class Pagination {
   }
 
   setTemporary = async () => {
-    //TEMPORARY TO TEN ZASIEG I TU 5 IFOW ZROBILEM
     if (this.pageNumber <= this.elementsToShow) {
       this.elementsToShow=this.pageNumber
       if (this.currentPage == 1) {
@@ -64,8 +62,6 @@ class Pagination {
     }
   };
 
-
-
   range(start, end) {
     let length = end - start + 1;
     return Array.from({ length }, (_, idx) => idx + start);
@@ -73,45 +69,31 @@ class Pagination {
 
   renderPagination = () => {
     try {
-  //TUTAJ SPRAWDZAM CZY JEST MNIEJSZE ROWNE 6 JESLI TAK DO DODAJE KROPKI I NA KONCU TOTALPAGES
-    if (this.currentPage <= this.pageNumber - 3) {
-      this.temporary.push('...');
-      this.temporary.push(this.pageNumber);
+      if (this.currentPage <= this.pageNumber - 3) {
+        this.temporary.push('...');
+        this.temporary.push(this.pageNumber);
+        }
+      if (this.pageNumber == this.elementsToShow) {
+        this.temporary.pop(this.pageNumber);
+        this.temporary.pop('...');
       }
-    if (this.pageNumber == this.elementsToShow) {
-      this.temporary.pop(this.pageNumber);
-      this.temporary.pop('...');
-    }
 
-      this.paginationContainer.innerHTML = '';
-      this.temporary.map((num, index) => {
-      this.paginationContainer.insertAdjacentHTML('beforeend', this.paginationTemplate(num));
-    });
-
-    const dots = document.querySelector('.pagination__dots');
-    //wyłączenie możliwości kliknięcia w kropki
-      if (dots) {
-        dots.disabled=true;
-      }
+        this.paginationContainer.innerHTML = '';
+        this.temporary.map((num, index) => {
+        this.paginationContainer.insertAdjacentHTML('beforeend', this.paginationTemplate(num));
+      });
     } catch (error) {
       console.log(error);
     }
   };
 
-  //TU DODALEM SPRAWDZANIE CZY JEST KROPKAMI ( ZEBY NIE DODAWALO BUTTON TYLKO ZWYKLE LI)
   paginationTemplate = (num) =>
-      num != '...'
-        ? `
-      <li class='pagination__link${num == this.currentPage ? '--active' : ''}'>
-        <button>${num}</button>
-      </li>
-    `
-        : `<span class='pagination__link--dots'><button class='pagination__dots'>
-    ${num}</button>
-    </span>`;
+    num != '...'
+      ?
+      num == this.currentPage ? paginationLinkActive(num) : paginationLink(num)
+      : paginationDots(num);
 
-
-  handlePaginationOnClick = async e => {
+    handlePaginationOnClick = async e => {
     e.preventDefault();
     this.cardContainer.innerHTML = '';
     document
@@ -128,7 +110,6 @@ class Pagination {
         authorId: this.authorId,
       });
     e.preventDefault()
-
   };
 
   paginationClear() {
@@ -142,7 +123,5 @@ class Pagination {
     this.temporary = '';
   }
 }
-
-
 
 export { Pagination };

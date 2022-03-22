@@ -20,7 +20,7 @@ $colors: (
     "second-header-bg-color": #0b0b0b80,
     "header-border-color": #fff,
     "header-option-bg-color": #fff,
-
+    "header-placeholder": rgba(255, 255, 255, 0.7),
 );
 
     @function getColor($key) {

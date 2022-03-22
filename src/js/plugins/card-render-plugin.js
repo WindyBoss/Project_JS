@@ -1,70 +1,63 @@
 import eventTemplate from '../../templates/eventTemplate.hbs';
 import priceContainerTemplate from '../../templates/priceContainer.hbs';
-import standardPriceContainerEquil from '../../templates/standardPriceContainerEquil.hbs';
-import standardPriceContainerNormal from '../../templates/standardPriceContainerNormal.hbs';
-import standardPriceTextByVip from '../../templates/standardPriceTextByVip.hbs';
-import standardPriceTextByVipEquil from '../../templates/standardPriceTextByVipEquil.hbs';
-import vipPriceContainer from '../../templates/vipPriceContainer.hbs';
-import vipPriceTextNormal from '../../templates/vipPriceTextNormal.hbs';
-import vipPriceTextEquil from '../../templates/vipPriceTextEquil.hbs';
+import standardPriceContainerEquil from '../../templates/standardPriceContainer/standardPriceContainerEquil.hbs';
+import standardPriceContainerNormal from '../../templates/standardPriceContainer/standardPriceContainerNormal.hbs';
+import standardPriceTextByVip from '../../templates/standardPriceContainer/standardPriceTextByVip.hbs';
+import standardPriceTextByVipEquil from '../../templates/standardPriceContainer/standardPriceTextByVipEquil.hbs';
+import vipPriceContainer from '../../templates/vipPriceContainer/vipPriceContainer.hbs';
+import vipPriceTextNormal from '../../templates/vipPriceContainer/vipPriceTextNormal.hbs';
+import vipPriceTextEquil from '../../templates/vipPriceContainer/vipPriceTextEquil.hbs';
 
 const Handlebars = require("handlebars");
-
-/*
-* Plugin rysowanie kart oraz okna modalnego
-*/
 
 class RenderCard {
   constructor({ event, svgSprite }) {
 
-        this.svgSprite = svgSprite;
-    // Grupuje zdjęcia po width
-        this.imagesListSmall = [];
-        this.imagesListMedium = [];
-        this.imagesListLarge = [];
-        this.setImages(event.images);
+    this.svgSprite = svgSprite;
 
-        this.imageContainerMedium = new Handlebars.SafeString(this.setGalleryImageContainer(this.imagesListMedium));
-        this.imageContainerLarge = new Handlebars.SafeString(this.setGalleryImageContainer(this.imagesListLarge));
-        this.imageContainerSmall = new Handlebars.SafeString(this.setGalleryImageContainer(this.imagesListSmall));
+    this.imagesListSmall = [];
+    this.imagesListMedium = [];
+    this.imagesListLarge = [];
+    this.setImages(event.images);
 
-      // ustawiam cechy obiektu
-        this.eventName = event.name;
-        this.eventNameCutted = event.name;
-        this.eventInfo = event.info;
-        this.eventDate = event.dates.start.localDate;
-        this.id = event.id;
+    this.imageContainerMedium = new Handlebars.SafeString(this.setGalleryImageContainer(this.imagesListMedium));
+    this.imageContainerLarge = new Handlebars.SafeString(this.setGalleryImageContainer(this.imagesListLarge));
+    this.imageContainerSmall = new Handlebars.SafeString(this.setGalleryImageContainer(this.imagesListSmall));
+
+    this.eventName = event.name;
+    this.eventNameCutted = event.name;
+    this.eventInfo = event.info;
+    this.eventDate = event.dates.start.localDate;
+    this.id = event.id;
     this.ticketLink = event.url;
 
     if (event._embedded) {
-        this.venueId = event._embedded.venues[0].id;
-        this.eventCity = event._embedded.venues[0].city.name;
-        this.eventCountry = event._embedded.venues[0].country.name;
-        this.eventLocation = event._embedded.venues[0].name;
-        this.eventTime = event.dates.start.localTime;
-        this.eventTimeZone = event.dates.timezone;
+      this.venueId = event._embedded.venues[0].id;
+      this.eventCity = event._embedded.venues[0].city.name;
+      this.eventCountry = event._embedded.venues[0].country.name;
+      this.eventLocation = event._embedded.venues[0].name;
+      this.eventTime = event.dates.start.localTime;
+      this.eventTimeZone = event.dates.timezone;
     } else {
-        this.venueId = null;
-        this.eventCity = null;
-        this.eventCountry = null;
-        this.eventLocation = null;
-        this.eventTime = event.dates.start.localTime;
-        this.eventTimeZone = event.dates.timezone;
+      this.venueId = null;
+      this.eventCity = null;
+      this.eventCountry = null;
+      this.eventLocation = null;
+      this.eventTime = event.dates.start.localTime;
+      this.eventTimeZone = event.dates.timezone;
     }
-        this.lowerPrice = '';
-        this.higherPrice = '';
-        this.currency = '';
-        this.lowerPriceVip = '';
-        this.higherPriceVip = '';
-        this.currencyVip = '';
+      this.lowerPrice = '';
+      this.higherPrice = '';
+      this.currency = '';
+      this.lowerPriceVip = '';
+      this.higherPriceVip = '';
+      this.currencyVip = '';
 
-      // stwarzam kontenery dla dynamicznego HTML
-        this.vipPriceContainerText = ''
-        this.standardPriceContainerText = '';
-        this.standardPriceContainer = '';
-        this.vipPriceContainer = ``;
+      this.vipPriceContainerText = ''
+      this.standardPriceContainerText = '';
+      this.standardPriceContainer = '';
+      this.vipPriceContainer = ``;
 
-      // sprawdzam czy są dwa poziomy cen (Standard + VIP)
     if (event.priceRanges) {
       this.lowerPrice = this.setNewPrice(event.priceRanges[0].min);
       this.higherPrice = this.setNewPrice(event.priceRanges[0].max);
@@ -89,27 +82,22 @@ class RenderCard {
           this.standardPriceContainerText = new Handlebars.SafeString(standardPriceTextByVipEquil(this));
           this.vipPriceContainerText = new Handlebars.SafeString(vipPriceTextEquil(this));
         };
-          this.vipPriceContainer = new Handlebars.SafeString(vipPriceContainer(this));
+        this.vipPriceContainer = new Handlebars.SafeString(vipPriceContainer(this));
       }
     }
 
     this.standardPriceContainer = new Handlebars.SafeString(priceContainerTemplate(this));
-
-    // rysowanie interfejsu w zmienną
     this.renderedCard = this.renderCard();
   }
 
-    // zwrot karty Ewenta
     getEventCard() {
       return this.renderedCard;
     }
 
-    // Funkcja rysowania interfejsu (karty oraz okna modalnego)
     renderCard() {
       return eventTemplate(this);
     }
 
-    // funkcja, która polepsza wygłąd ceny
     setNewPrice(price) {
     let newPrice = price;
     if (String(price).length > 3) {
@@ -118,7 +106,6 @@ class RenderCard {
     return newPrice;
   };
 
-    // funkcja grupowania zdjęc po width
     setImages(images) {
       const imagesListSmall = [];
       const imagesListMedium = [];
@@ -139,7 +126,6 @@ class RenderCard {
         this.imagesListLarge = imagesListLarge.sort((a, b) => (a.width - b.width));
     }
 
-    // funkcja stworzenia kontenera zdjęc
     setGalleryImageContainer(container) {
       if (container.length > 3) {
         return `

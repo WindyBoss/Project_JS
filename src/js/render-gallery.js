@@ -6,17 +6,7 @@ import { saveLocalStorage, getLocalStorage } from './components/localStorage';
 
 import Svg from '../images/svg/symbol-defs.svg';
 
-
-/*
-* funkcja od której wszystko się zaczyna :)
-* podłączam plugin paginacji
-* podłączam plugin Fetch
-*/
-
-
-
-async function galleryRender({ country, page, keyword, authorId}) {
-    // żeby uniknąc nakładania eventListenerów przy paginacji zamieniam kontener paginacji na klona
+async function galleryRender({ country, page, keyword, authorId }) {
 
   saveLocalStorage(keyword, country)
 
@@ -51,7 +41,6 @@ async function galleryRender({ country, page, keyword, authorId}) {
     authorId: authorId,
   });
 
-   //DODAJE TUTAL TOTALPAGES ZEBY SPRAWDZIC CZCY POTRZEBNE SA TRZY KROPKI
   pagination.renderPagination();
 
   const cloneContainerListener = new EventListener({

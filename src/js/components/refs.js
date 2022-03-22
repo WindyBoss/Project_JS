@@ -1,8 +1,3 @@
-
-/*
-* wszystkie selectory
-*/
-
 const refs = {
   form: document.querySelector('.search-bar__form'),
   input: document.querySelector('.search-bar__input'),
@@ -10,6 +5,7 @@ const refs = {
   gallery: document.querySelector('.gallery'),
   lazyImages: document.querySelectorAll('img[data-src]'),
   loading: document.querySelector("#loading"),
+  inputContainer: document.querySelector('.select-items'),
 }
 
 export { refs };

@@ -1,11 +1,6 @@
 
 import { refs } from './refs';
 
-/*
-* Jeżeli browser pracuje z lazyload to wtedy skrypt wykorzystuje lazyload,
-* a jeżeli nie to podłacza skrypt biblioteki 'Lazysizes'
-*/
-
 refs.lazyImages.forEach(image => {
     image.addEventListener('load', onImageLoaded, { once: true });
 });

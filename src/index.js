@@ -1,6 +1,8 @@
 'use strict';
-import './sass/main.scss';
 const axios = require('axios');
+
+import './sass/main.scss';
+
 import { getLocalStorage } from './js/components/localStorage';
 import { Loader } from './js/components/loading';
 import { galleryRender } from './js/render-gallery';
